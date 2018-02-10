@@ -33,6 +33,9 @@
     </div>
 </div>
 </#list>
+<#if path == "search" && articles.getTotalElements() == 0>
+    <h4 class="text-center">无搜索结果！</h4>
+</#if>
 <div>
     <ul id='bp-element' class="pagination"></ul>
 </div>

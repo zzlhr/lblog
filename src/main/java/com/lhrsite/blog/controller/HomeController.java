@@ -103,7 +103,6 @@ public class HomeController {
 
         PageContentVO<ArticleVO> articleVOS =
                 articleService.getArticleList(keyword, Ip.getIpAddress(request), pageRequest);
-
         model.addAttribute("articles", articleVOS);
         model.addAttribute("path", "search");
         init(model);
