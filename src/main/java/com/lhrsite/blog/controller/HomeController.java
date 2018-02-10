@@ -54,7 +54,8 @@ public class HomeController {
 
     @GetMapping("/article.html")
     public String article(Integer id, HttpServletRequest request, Model model){
-        ArticleVO articleVO = articleService.getArticleInfo(Ip.getIpAddress(request), id);
+        ArticleVO articleVO =
+                articleService.getArticleInfo(Ip.getIpAddress(request), id);
         model.addAttribute("article", articleVO);
         init(model);
         model.addAttribute("path", "article");
@@ -66,7 +67,7 @@ public class HomeController {
                            @RequestParam(defaultValue = "1") Integer page,
                            HttpServletRequest request, Model model){
         PageRequest pageRequest = new PageRequest(page - 1, 10,
-                new Sort(Sort.Direction.DESC, "id"));
+                new Sort(Sort.Direction.DESC, "updateTime"));
 
         PageContentVO<ArticleVO> articles =
                 articleService.getArticleList(
