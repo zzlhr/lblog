@@ -1,0 +1,85 @@
+package com.lhrsite.blog.services;
+
+import com.lhrsite.blog.entity.Article;
+import com.lhrsite.blog.entity.User;
+import com.lhrsite.blog.vo.ArticleVO;
+import com.lhrsite.blog.vo.PageContentVO;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
+
+/**
+ * 文章操作
+ * @author lhr
+ * @create 2018/1/26
+ */
+public interface ArticleService {
+
+
+    /**
+     * 获取首页文章
+     * @param ip    操作ip
+     * @return  首页文章
+     */
+    List<ArticleVO> getIndexArticle(String ip);
+
+
+    /**
+     * 获取文章列表
+     * @param ip    操作ip
+     * @param page  分页
+     * @return      本页文章
+     */
+    PageContentVO<ArticleVO> getArticleList(String ip, PageRequest page);
+
+    PageContentVO<ArticleVO> getArticleList(String keyword, String ip, PageRequest page);
+
+    /**
+     * 获取文章详情
+     * @param ip    操作ip
+     * @param id    文章id
+     * @return      文章详情
+     */
+    ArticleVO getArticleInfo(String ip, int id);
+
+    /**
+     * 修改文章状态
+     * @param ip    操作ip
+     * @param status    状态
+     * @param articleId 文章id
+     * @param user      修改改状态的用户
+     * @return          文章对象
+     *
+     */
+    ArticleVO updateArticleStatus(String ip, Integer status, Integer articleId, User user);
+
+    /**
+     * 修改文章
+     * @param ip    操作ip
+     * @param article       文章对象
+     * @param user          修改的用户
+     * @return              修改后的文章对象
+     */
+    ArticleVO updateArticle(String ip, Article article, String[] tagContents, User user);
+
+    /**
+     * 删除文章
+     * @param ip    操作ip
+     * @param article   文章对象
+     * @param user      用户
+     * @return          删除后的文章对象
+     */
+
+
+    ArticleVO delectArticle(String ip, Article article, User user);
+
+    /**
+     * 添加文章
+     * @param ip    操作ip
+     * @param article   文章对象
+     * @param tagContents 一组标签内容
+     * @param user      添加的用户
+     * @return          添加成功的文章对象
+     */
+    ArticleVO addArticle(String ip, Article article, String[] tagContents, User user);
+}
