@@ -69,7 +69,7 @@
 </script>
 
 <nav class="navbar bg-dark navbar-dark navbar-expand-lg">
-    <a class="navbar-brand" href="#">${title}</a>
+    <a class="navbar-brand" href="#">${title ! '博客后台管理系统'}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -77,10 +77,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     </div>
     <div class="nav justify-content-end">
-        <div class="nav-item">
-            <a class="nav-link" href="#">
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="dropdownMenuImage" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="http://img0.imgtn.bdimg.com/it/u=2288384215,2187588675&fm=27&gp=0.jpg" alt="header image" class="rounded-circle">
             </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuImage">
+                <a class="dropdown-item" href="update_password.html">修改密码</a>
+                <a class="dropdown-item" href="loginout.html">注销</a>
+            </div>
         </div>
     </div>
 </nav>

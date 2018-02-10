@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         try {
             password = Encrypt.base64Encode(Encrypt.md5AddSalt(password));
             if (password.equals(user.getPassword())){
-                String token = Arrays.toString(Encrypt.md5AddSalt(UUID.randomUUID().toString()));
+                String token = Encrypt.base64Encode(Encrypt.md5AddSalt(UUID.randomUUID().toString()));
                 user.setToken(token);
                 repository.save(user);
                 return user;
@@ -53,4 +53,18 @@ public class UserServiceImpl implements UserService {
         return user.getToken().equals(token);
 
     }
+
+    @Override
+    public User getOne(String userName) {
+        return repository.findByUsername(userName);
+    }
+
+    @Override
+    public boolean updatePassword(Integer userId, String newPassword) {
+        User user = repository.findOne(userId);
+        user.setPassword(newPassword);
+        repository.save(user);
+        return true;
+    }
+
 }

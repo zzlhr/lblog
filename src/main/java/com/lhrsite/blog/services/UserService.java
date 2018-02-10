@@ -1,6 +1,7 @@
 package com.lhrsite.blog.services;
 
 import com.lhrsite.blog.entity.User;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * @author lhr
@@ -25,4 +26,18 @@ public interface UserService {
     Boolean isLogin(String token, String userName);
 
 
+    /**
+     * 获取一个用户
+     * @param userName  用户名
+     * @return          用户
+     */
+    User getOne(String userName);
+
+    /**
+     * 修改米啊
+     * @param userId        用户id
+     * @param newPassword   新密码
+     * @return              是否修改成功！
+     */
+    boolean updatePassword(Integer userId, String newPassword);
 }

@@ -1,9 +1,11 @@
 package com.lhrsite.blog.controller;
 
+import com.lhrsite.blog.code.Encrypt;
 import com.lhrsite.blog.entity.Article;
 import com.lhrsite.blog.entity.FriendLink;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.enums.ResultCodeEnums;
+import com.lhrsite.blog.exceptions.EncryptException;
 import com.lhrsite.blog.repository.FriendLinkRepository;
 import com.lhrsite.blog.services.ArticleService;
 import com.lhrsite.blog.services.UserService;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * 后台管理
@@ -69,17 +72,27 @@ public class AdminController {
     public String loginPage(){
         return "admin/login";
     }
+
+
+    @ResponseBody
     @PostMapping("/login.html")
     public String login(String username, String password, HttpServletRequest request){
         User user = userService.login(username, password);
+        int code = 0;
+        String msg = "登录成功！";
         if (user == null){
-            return "redirect:login.html";
+            code = -1;
+            msg = "用户名或密码错误！";
+
+        }else{
+            request.getSession().setAttribute("userToken", user.getToken());
+            request.getSession().setAttribute("userId", user.getId());
+            request.getSession().setAttribute("userName", user.getUsername());
+            request.getSession().setAttribute("admin", user);
+
         }
-        request.getSession().setAttribute("userToken", user.getToken());
-        request.getSession().setAttribute("userId", user.getId());
-        request.getSession().setAttribute("userName", user.getUsername());
-        request.getSession().setAttribute("admin", user);
-        return "redirect:index.html";
+        return AlertVO.alertAndSuccessGoToPath(code, msg, "index.html");
+
     }
 
     @GetMapping("/article-update.html")
@@ -196,15 +209,74 @@ public class AdminController {
         return AlertVO.alert(0, "修改文章成功!");
     }
 
+
+
+    @RequestMapping("/loginout.html")
+    public String loginOut(HttpServletRequest request){
+        request.getSession().removeAttribute("userToken");
+        request.getSession().removeAttribute("userId");
+        request.getSession().removeAttribute("userName");
+        request.getSession().removeAttribute("admin");
+        return "redirect:login.html";
+    }
+
+
+    @GetMapping("/update_password.html")
+    public String updatePasswordPage(Model model){
+        model.addAttribute("title", "修改密码");
+        return "admin/update_password";
+    }
+
+    @ResponseBody
+    @PostMapping("/update_password.html")
+    public String updatePassword(String oldPassword, String newPassword,
+                                 String confirmPassword, HttpServletRequest request){
+
+        if (oldPassword == null || "".equals(oldPassword)){
+            return AlertVO.alert(-1, "旧密码不能为空");
+        }
+
+
+        if (newPassword == null || "".equals(newPassword)){
+            return AlertVO.alert(-1, "新密码不能为空");
+        }
+
+        if (confirmPassword == null || "".equals(confirmPassword)){
+            return AlertVO.alert(-1, "确认密码不能为空");
+        }
+
+        if (!confirmPassword.equals(newPassword)){
+            return AlertVO.alert(-1, "两次输入密码不同");
+        }
+
+        User user = userService.getOne(String.valueOf(
+                request.getSession().getAttribute("userName")));
+
+        try {
+
+            if(!user.getPassword().equals(Encrypt.base64Encode(Encrypt.md5AddSalt(oldPassword)))){
+                return AlertVO.alert(-1, "旧密码验证未通过");
+            }
+        } catch (EncryptException e) {
+            e.printStackTrace();
+        }
+        System.out.println(newPassword);
+        if (userService.updatePassword(user.getId(), newPassword)){
+            return AlertVO.alertAndSuccessGoToPath(0, "修改密码成功！",
+                    "loginout.html");
+        }else {
+            return AlertVO.alert(1, "修改密码失败！");
+        }
+
+    }
+
     /**
      * 图片文件上传
      */
     @ResponseBody
     @RequestMapping(value = "/photoUpload.do", method = RequestMethod.POST)
     public UploadVO photoUpload(MultipartFile file,
-                                HttpServletRequest request,
-                                HttpServletResponse response,
-                                HttpSession session)
+                                HttpServletRequest request)
             throws IllegalStateException, IOException {
         UploadVO resultData = new UploadVO();
         // 判断用户是否登录
