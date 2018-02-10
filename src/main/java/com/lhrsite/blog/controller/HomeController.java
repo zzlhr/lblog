@@ -26,7 +26,6 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
-
     private final ArticleService articleService;
 
     private final TagService tagService;
@@ -46,7 +45,6 @@ public class HomeController {
         String ip = Ip.getIpAddress(request);
 
         List<ArticleVO> articleList = articleService.getIndexArticle(ip);
-
 
         init(model);
         model.addAttribute("path", "index");

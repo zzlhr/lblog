@@ -32,9 +32,7 @@ public class AdminFilter implements Filter {
         String[] uris = uri.split("\\.");
         if (!uri.contains("/admin")){
             filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
-        if ("do".equals(uris[uris.length - 1]) || "html".equals(uris[uris.length - 1])){
+        } else if ("do".equals(uris[uris.length - 1]) || "html".equals(uris[uris.length - 1])){
             Object userToken, userName;
             if ("/admin/login.html".equals(uri) || "/admin/login.do".equals(uri)){
 

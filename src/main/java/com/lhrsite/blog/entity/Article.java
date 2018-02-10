@@ -29,14 +29,14 @@ public class Article implements Serializable {
 
     /** 文章描述 */
     @NonNull
-    private String articleDescribe;
+    private String articleDescribe = "";
 
     /** 文章内容 */
     @NonNull
-    private String articleContentHtml;
+    private String articleContentHtml = "";
 
     @NonNull
-    private String articleContentMd;
+    private String articleContentMd = "";
 
     /** 文章状态 0为显示，1为隐藏 */
     private Integer articleStatus = ArticleStatusConst.SHOW;

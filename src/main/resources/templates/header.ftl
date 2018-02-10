@@ -5,7 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>lhr's-blog</title>
+    <#if path == 'article'>
+        <title>${article.articleTitle}</title>
+        <meta name="keywords" content="<#list article.getTagList() as tag>${tag.getTagContent()},</#list>">
+        <meta name="description" content="${article.articleDescribe}">
+    <#else>
+        <title>lhr's-blog</title>
+    </#if>
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery.slim.min.js"></script>
     <script src="js/popper.min.js"></script>

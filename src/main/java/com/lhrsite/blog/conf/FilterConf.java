@@ -4,6 +4,7 @@ import com.lhrsite.blog.filter.AdminFilter;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 
@@ -11,7 +12,7 @@ import javax.servlet.Filter;
  * @author lhr
  * @create 2018/2/9
  */
-@Configurable
+@Configuration
 public class FilterConf {
     /**
      * 配置过滤器
@@ -22,7 +23,6 @@ public class FilterConf {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(adminFilter());
         registration.addUrlPatterns("/admin/*");
-//        registration.addInitParameter("paramName", "paramValue");
         registration.setName("adminFilter");
         return registration;
     }
