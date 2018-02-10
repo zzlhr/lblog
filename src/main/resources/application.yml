@@ -3,8 +3,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
 #    password: root
-    password: LiuHaoRan114
-    url: jdbc:mysql://39.106.23.44:3306/blog?characterEncoding=UTF-8&useSSL=true
+    password: root
+    url: jdbc:mysql://localhost:3306/blog?characterEncoding=UTF-8&useSSL=true
 #    druid:
 #      #连接池
 #      # 下面为连接池的补充设置，应用到上面所有数据源中
