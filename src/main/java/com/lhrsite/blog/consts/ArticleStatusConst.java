@@ -1,6 +1,7 @@
 package com.lhrsite.blog.consts;
 
 /**
+ * 文章状态
  * @author lhr
  * @create 2018/1/25
  */

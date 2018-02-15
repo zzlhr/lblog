@@ -2,6 +2,7 @@ package com.lhrsite.blog.vo;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,6 @@ import java.util.List;
 @Data
 public class PageContentVO<T> extends PageVO {
 
-    private List<T> contents;
+    private List<T> contents = new ArrayList<>();
 
 }

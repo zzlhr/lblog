@@ -32,17 +32,63 @@
             </#list>
             </div>
         </div>
-
-
-
-
         <div style="margin-top: 20px;">
             ${article.articleContentHtml}
         </div>
+
+        <div></div>
+    </div>
+</div>
+<div class="blog-article-comment card">
+    <div class="card-body">
+        <span style="font: 30;">评论</span>
+        <#if user??>
+            <div class="float-right">
+                <span>${user.username}</span>
+            </div>
+        <#else>
+            <div class="float-right">
+                <a href="https://github.com/login/oauth/authorize?client_id=2e20720cb5be056663cf&redirect_uri=https://www.lhrsite.com/api/login.do" class="btn btn-sm btn-success">
+                    <img src="/svg/mark-github.svg" /> &nbsp;Login
+                </a>
+            </div>
+        </#if>
+        <hr />
+
+        <div>
+            <#list comments as comment>
+                <div>
+                    <img class="rounded-circle blog-usre-header" src="${comment.user.headerUrl}">
+                    <b>${comment.user.getUsername()} <small>于${comment.createTime}</small> 说:</b>
+                </div>
+                <div style="margin-left: 40px;">
+                    <p>${comment.commentContent}</p>
+                </div>
+            </#list>
+            <hr />
+        </div>
+        <div>
+            <form action="send_comment" method="post">
+                <div class="form-group">
+                    <label for="comment">评论内容:</label>
+                    <input hidden name="articleId" value="${article.id}">
+                    <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+                </div>
+                <div class="float-right">
+                    <button type="submit" class="btn btn-sm btn-info">评论</button>
+                </div>
+            </form>
+            <br>
+
+        </div>
+
     </div>
 </div>
 <#include "footer.ftl">
 
 </div>
 </body>
+<script>
+    sessionStorage.setItem("article_id", ${article.id})
+</script>
 </html>

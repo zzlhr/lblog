@@ -1,6 +1,7 @@
 package com.lhrsite.blog.consts;
 
 /**
+ * 统计类型
  * @author lhr
  * @create 2018/2/7
  */

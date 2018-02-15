@@ -22,13 +22,17 @@ public class User implements Serializable {
     private Integer id;
 
 
+    private String loginName;
+
     /** 用户 */
     @NonNull
     private String username;
 
     /** 密码 */
-    @NonNull
     private String password;
+
+    /** 头像地址 */
+    private String headerUrl;
 
     /** 创建时间 */
     @Column(updatable = false, insertable = false)
@@ -50,6 +54,12 @@ public class User implements Serializable {
 
     /** 状态 */
     private Integer status = UserStatusConst.USE;
+
+    /** 是否为管理员 */
+    private Integer admin;
+
+    /** 账号类型 */
+    private Integer type;
 
 
     public void setPassword(String password){

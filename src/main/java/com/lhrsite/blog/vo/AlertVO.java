@@ -34,5 +34,8 @@ public class AlertVO {
             return "<script>alert('" + msg + "');location.href=history.go(-1);</script>";
         }
     }
+    public static String alertAndRunJs(String msg, String js){
+        return "<script>alert('" + msg + "');" + js + ";</script>";
+    }
 
 }

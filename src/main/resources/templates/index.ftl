@@ -1,3 +1,4 @@
+
 <#include "header.ftl">
 <#list articles as article>
 <div class="blog-article-list card">

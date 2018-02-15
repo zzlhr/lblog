@@ -33,6 +33,13 @@
         .blog-main-content{
             margin-bottom: 1rem;
         }
+        .blog-article-comment{
+            margin-top: 1rem;
+        }
+        .blog-usre-header{
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>

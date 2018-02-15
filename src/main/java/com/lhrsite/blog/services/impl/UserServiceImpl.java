@@ -17,6 +17,8 @@ import java.util.UUID;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+
     private final UserRepository repository;
 
     @Autowired
@@ -60,11 +62,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getOne(Integer id) {
+        return repository.findOne(id);
+    }
+
+    @Override
     public boolean updatePassword(Integer userId, String newPassword) {
         User user = repository.findOne(userId);
         user.setPassword(newPassword);
         repository.save(user);
         return true;
+    }
+
+    @Override
+    public User saveUser(User user) {
+        return repository.save(user);
+    }
+
+
+    @Override
+    public User getUserByLoginName(String loginName) {
+        return repository.findByLoginName(loginName);
     }
 
 }

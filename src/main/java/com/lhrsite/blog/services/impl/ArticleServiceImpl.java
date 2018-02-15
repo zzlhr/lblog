@@ -1,6 +1,9 @@
 package com.lhrsite.blog.services.impl;
 
 import com.lhrsite.blog.consts.ArticleStatusConst;
+import com.lhrsite.blog.consts.CommentStatusConst;
+import com.lhrsite.blog.entity.*;
+import com.lhrsite.blog.repository.ArticleCommentRepository;
 import com.lhrsite.blog.repository.ArticleRepository;
 import com.lhrsite.blog.repository.ArticleTagRepository;
 import com.lhrsite.blog.services.ArticleService;
@@ -9,10 +12,6 @@ import com.lhrsite.blog.services.TagService;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
 import com.lhrsite.blog.vo.PageVO;
-import com.lhrsite.blog.entity.Article;
-import com.lhrsite.blog.entity.ArticleTag;
-import com.lhrsite.blog.entity.Log;
-import com.lhrsite.blog.entity.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,16 +37,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final TagService tagService;
 
+    private final ArticleCommentRepository commentRepository;
 
     private final ArticleTagRepository tagRepository;
 
 
+
     @Autowired
-    public ArticleServiceImpl(ArticleRepository repository, LogService log, TagService tagService, ArticleTagRepository tagRepository) {
+    public ArticleServiceImpl(ArticleRepository repository, LogService log, TagService tagService, ArticleTagRepository tagRepository, ArticleCommentRepository commentRepository) {
         this.repository = repository;
         this.log = log;
         this.tagService = tagService;
         this.tagRepository = tagRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -248,10 +250,23 @@ public class ArticleServiceImpl implements ArticleService {
         return getArticleVO(result);
     }
 
+    @Override
+    public boolean sendComment(ArticleComment articleComment) {
+
+        System.out.println(articleComment);
+        // todo: 添加过滤敏感词
+        return commentRepository.save(articleComment) != null;
+
+    }
+
+    @Override
+    public Page<ArticleComment> getArticleComments(Integer articleId, PageRequest pageRequest) {
+        return commentRepository.findByArticleIdAndCommentStatus(articleId,
+                CommentStatusConst.SHOW, pageRequest);
+    }
 
 
-
-    public List<ArticleVO> getArticleVOS(List<Article> articles){
+    private List<ArticleVO> getArticleVOS(List<Article> articles){
         // 存放所有的文章id值
         List<Integer> articleIds = new ArrayList<>();
 
@@ -278,7 +293,7 @@ public class ArticleServiceImpl implements ArticleService {
         return result;
     }
 
-    public ArticleVO getArticleVO(Article article){
+    private ArticleVO getArticleVO(Article article){
 
         // 根据文章id查询文章标签
         List<ArticleTag> tags = tagRepository.findAllByArticleId(article.getId());

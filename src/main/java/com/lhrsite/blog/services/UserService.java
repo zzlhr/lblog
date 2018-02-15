@@ -32,6 +32,8 @@ public interface UserService {
      * @return          用户
      */
     User getOne(String userName);
+    User getOne(Integer id);
+    User getUserByLoginName(String loginName);
 
     /**
      * 修改米啊
@@ -40,4 +42,8 @@ public interface UserService {
      * @return              是否修改成功！
      */
     boolean updatePassword(Integer userId, String newPassword);
+
+
+
+    User saveUser(User user);
 }

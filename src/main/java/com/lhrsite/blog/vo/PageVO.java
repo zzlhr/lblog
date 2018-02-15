@@ -12,7 +12,7 @@ public class PageVO {
 
     private int totalPages;
 
-    private int totalElements;
+    private int totalElements = 0;
 
     private int number;
 

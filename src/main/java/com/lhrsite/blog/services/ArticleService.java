@@ -1,9 +1,11 @@
 package com.lhrsite.blog.services;
 
 import com.lhrsite.blog.entity.Article;
+import com.lhrsite.blog.entity.ArticleComment;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
@@ -82,4 +84,21 @@ public interface ArticleService {
      * @return          添加成功的文章对象
      */
     ArticleVO addArticle(String ip, Article article, String[] tagContents, User user);
+
+
+    /**
+     * 发表一条评论
+     * @param articleComment    评论对象
+     * @return      是否成功
+     */
+    boolean sendComment(ArticleComment articleComment);
+
+
+    /**
+     * 获取文章评论
+     * @param articleId 文章id
+     * @param pageRequest   分页
+     * @return  评论对象
+     */
+    Page<ArticleComment> getArticleComments(Integer articleId, PageRequest pageRequest);
 }

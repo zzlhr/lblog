@@ -5,7 +5,7 @@
 
     <groupId>com.lhrsite</groupId>
     <artifactId>blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>v1.0</version>
     <packaging>jar</packaging>
 
     <name>blog</name>
@@ -57,6 +57,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.31</version>
         </dependency>
     </dependencies>
 
