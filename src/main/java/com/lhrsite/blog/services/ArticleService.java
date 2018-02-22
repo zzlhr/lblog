@@ -36,6 +36,8 @@ public interface ArticleService {
 
     PageContentVO<ArticleVO> getArticleList(String keyword, String ip, PageRequest page);
 
+    PageContentVO<ArticleVO> getArticleList(String ip, PageRequest page, Integer status);
+
     /**
      * 获取文章详情
      * @param ip    操作ip

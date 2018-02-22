@@ -2,6 +2,7 @@ package com.lhrsite.blog.controller;
 
 import com.lhrsite.blog.code.Encrypt;
 import com.lhrsite.blog.entity.Article;
+import com.lhrsite.blog.entity.ArticleStatistics;
 import com.lhrsite.blog.entity.FriendLink;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.enums.ResultCodeEnums;
@@ -115,7 +116,7 @@ public class AdminController {
         PageRequest pageRequest = new PageRequest(page - 1, 10,
                 new Sort(Sort.Direction.DESC, "id"));
         PageContentVO<ArticleVO> articleVOPageContentVO =
-                articleService.getArticleList(Ip.getIpAddress(request), pageRequest);
+                articleService.getArticleList(Ip.getIpAddress(request), pageRequest, null);
 
         model.addAttribute("articles", articleVOPageContentVO);
         return "admin/articles";
