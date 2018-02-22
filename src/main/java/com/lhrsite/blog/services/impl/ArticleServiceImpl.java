@@ -71,28 +71,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public PageContentVO<ArticleVO> getArticleList(String ip, PageRequest page) {
+        return getArticleList(ip, page, ArticleStatusConst.SHOW);
 
-        // 获取文章对象根据分页查询并且状态位show的
-
-        log.writeLog(new Log(ip, "获取文章列表第" + page.getPageNumber() + 1 + "页"));
-
-
-        Page<Article> articles = repository
-                .findAllByArticleStatus(ArticleStatusConst.SHOW, page);
-
-        PageVO pageVO = new PageVO();
-
-        BeanUtils.copyProperties(articles, pageVO);
-
-        List<ArticleVO> articleVOS = getArticleVOS(articles.getContent());
-
-        PageContentVO<ArticleVO> articleVOPageContentVO = new PageContentVO<>();
-
-        BeanUtils.copyProperties(pageVO, articleVOPageContentVO);
-
-        articleVOPageContentVO.setContents(articleVOS);
-
-        return articleVOPageContentVO;
     }
 
     @Override
@@ -121,6 +101,36 @@ public class ArticleServiceImpl implements ArticleService {
 
         return articleVOPageContentVO;
 
+    }
+
+    @Override
+    public PageContentVO<ArticleVO> getArticleList(String ip, PageRequest page, Integer status) {
+        // 获取文章对象根据分页查询并且状态位show的
+
+        log.writeLog(new Log(ip, "获取文章列表第" + page.getPageNumber() + 1 + "页"));
+
+        Page<Article> articles = null;
+
+        if(status != null){
+            articles = repository
+                    .findAllByArticleStatus(status, page);
+        }else {
+            articles = repository.findAll(page);
+        }
+
+        PageVO pageVO = new PageVO();
+
+        BeanUtils.copyProperties(articles, pageVO);
+
+        List<ArticleVO> articleVOS = getArticleVOS(articles.getContent());
+
+        PageContentVO<ArticleVO> articleVOPageContentVO = new PageContentVO<>();
+
+        BeanUtils.copyProperties(pageVO, articleVOPageContentVO);
+
+        articleVOPageContentVO.setContents(articleVOS);
+
+        return articleVOPageContentVO;
     }
 
     @Override
