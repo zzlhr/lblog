@@ -9,6 +9,7 @@ import com.lhrsite.blog.vo.AlertVO;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
 import com.lhrsite.blog.request.Ip;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -139,20 +140,26 @@ public class HomeController {
     @PostMapping("/send_comment")
     public String sendComment(Integer articleId, String comment,
                               HttpServletRequest request){
+        User user = (User) request
+                .getSession()
+                .getAttribute("user");
+
+        if (user == null){
+            return AlertVO.alert(-1, "请先登录");
+        }
+
         ArticleComment articleComment = new ArticleComment();
 
-        System.out.println(articleId);
+        if (articleId == null || "".equals(articleId)){
+            return AlertVO.alert(-1, "文章id不能为空");
+        }
+
 
         int code = 0;
 
         String msg = "发布评论成功！";
 
-        User user = (User) request
-                .getSession()
-                .getAttribute("user");
 
-        System.out.println(user);
-        
         Integer userId = user.getId();
 
         if (comment == null || "".equals(comment)){
