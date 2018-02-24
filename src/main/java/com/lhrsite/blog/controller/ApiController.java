@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * 公共api控制器
  * @author lhr
  * @create 2018/2/10
  */
@@ -47,6 +48,7 @@ public class ApiController {
     @ResponseBody
     @RequestMapping("/login.do")
     public String login(String code, HttpServletRequest request){
+        // github登录
         HttpClientUtil httpClientUtil = new HttpClientUtil();
         httpClientUtil.setUrl("https://github.com/login/oauth/access_token");
         Map param = new HashMap<>(3);

@@ -22,7 +22,8 @@
 - [faq](./doc/FAQ.md)
 - sql脚本在/sql/ 下,请根据日期还原最新版本
 
-
+#### 部署方式
+- [linux(以centos7为例)](./doc/linux_deploy.md)
 
 
 #### 欢迎大家star&fork

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * http请求辅助类
  * @author 刘浩然
  * @date 2017/8/17
  */

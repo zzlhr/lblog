@@ -1,7 +1,6 @@
 package com.lhrsite.blog.services;
 
 import com.lhrsite.blog.entity.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * @author lhr
