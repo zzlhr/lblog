@@ -280,13 +280,6 @@ public class AdminController {
                                 HttpServletRequest request)
             throws IllegalStateException, IOException {
         UploadVO resultData = new UploadVO();
-        // 判断用户是否登录
-        /*User user=(User) session.getAttribute("user");
-        if (user==null) {
-            resultData.setCode(40029);
-            resultData.setMsg("用户未登录");
-            return resultData;
-        }*/
 
         // 判断上传的文件是否为空
         if (file!=null) {

@@ -29,13 +29,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String userName, String password) {
         User user = repository.findByUsername(userName);
+
         if(user == null){
             return null;
         }
         try {
-            password = Encrypt.base64Encode(Encrypt.md5AddSalt(password));
+            password = Encrypt.md5AddSalt(password);
+            System.out.println(password);
+            System.out.println(user);
             if (password.equals(user.getPassword())){
-                String token = Encrypt.base64Encode(Encrypt.md5AddSalt(UUID.randomUUID().toString()));
+                String token = Encrypt.md5AddSalt(UUID.randomUUID().toString());
                 user.setToken(token);
                 repository.save(user);
                 return user;

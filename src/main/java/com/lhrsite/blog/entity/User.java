@@ -64,7 +64,7 @@ public class User implements Serializable {
 
     public void setPassword(String password){
         try {
-            this.password = Encrypt.base64Encode(Encrypt.md5AddSalt(password));
+            this.password = Encrypt.md5AddSalt(password);
         } catch (EncryptException e) {
             e.printStackTrace();
         }
