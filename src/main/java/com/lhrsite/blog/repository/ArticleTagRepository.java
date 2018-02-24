@@ -1,6 +1,8 @@
 package com.lhrsite.blog.repository;
 
 import com.lhrsite.blog.entity.ArticleTag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +18,8 @@ public interface ArticleTagRepository extends JpaRepository<ArticleTag, Integer>
     List<ArticleTag> findAllByArticleId(Integer articleId);
 
     List<ArticleTag> findAllByArticleIdIsIn(List<Integer> articleId);
+
+    Page<ArticleTag> findByTagContent(String tagContent,
+                                      Pageable pageable);
 
 }

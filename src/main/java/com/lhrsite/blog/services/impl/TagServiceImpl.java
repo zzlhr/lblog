@@ -1,10 +1,14 @@
 package com.lhrsite.blog.services.impl;
 
+import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.Tag;
+import com.lhrsite.blog.repository.ArticleTagRepository;
 import com.lhrsite.blog.repository.TagRepository;
 import com.lhrsite.blog.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +22,15 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
 
+    private final TagRepository repository;
+
+    private final ArticleTagRepository articleTagRepository;
+
     @Autowired
-    private TagRepository repository;
+    public TagServiceImpl(TagRepository repository, ArticleTagRepository articleTagRepository) {
+        this.repository = repository;
+        this.articleTagRepository = articleTagRepository;
+    }
 
 
     @Override
@@ -48,5 +59,11 @@ public class TagServiceImpl implements TagService {
         }
 
         return repository.save(tag).getId();
+    }
+
+    @Override
+    public Page<ArticleTag> findArticleTag(String tag,
+                                           Pageable pageable) {
+        return articleTagRepository.findByTagContent(tag, pageable);
     }
 }

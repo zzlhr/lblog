@@ -1,6 +1,7 @@
 package com.lhrsite.blog.controller;
 
 import com.lhrsite.blog.entity.ArticleComment;
+import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.repository.FriendLinkRepository;
 import com.lhrsite.blog.services.ArticleService;
@@ -9,17 +10,17 @@ import com.lhrsite.blog.vo.AlertVO;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
 import com.lhrsite.blog.request.Ip;
-import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -182,7 +183,6 @@ public class HomeController {
             code = -1;
             msg = "用户id为空";
         }
-        User userEntity = new User();
         user.setId(userId);
         articleComment.setUser(user);
 
@@ -198,11 +198,38 @@ public class HomeController {
     }
 
 
+    @GetMapping("/tag.html")
+    public String tag(String tag,
+                      @RequestParam(defaultValue = "1") Integer page,
+                      HttpServletRequest request, Model model){
+        PageRequest pageRequest =
+                new PageRequest(page - 1, 10,
+                        new Sort(Sort.Direction.DESC,
+                                "articleId"));
+
+        Page<ArticleTag> articleTags =
+                tagService.findArticleTag(tag, pageRequest);
+
+        model.addAttribute("page", articleTags);
+        List<Integer> articleIds = new ArrayList<>();
+
+        for (ArticleTag articleTag : articleTags.getContent()){
+            articleIds.add(articleTag.getArticleId());
+        }
+        model.addAttribute("tag",tag);
+        model.addAttribute("path", "tag");
+        model.addAttribute("articles", articleService.getArticleByIds(articleIds));
+        init(model);
+        return "tag";
+    }
+
+
     public Model init(Model model){
         model.addAttribute("topTenTags", tagService.getTopTenTag());
         model.addAttribute("friendLinks", friendLinkRepository.findAll());
         return model;
     }
+
 
 
 }

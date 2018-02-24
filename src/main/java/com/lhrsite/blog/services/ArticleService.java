@@ -103,4 +103,6 @@ public interface ArticleService {
      * @return  评论对象
      */
     Page<ArticleComment> getArticleComments(Integer articleId, PageRequest pageRequest);
+
+    List<ArticleVO> getArticleByIds(List<Integer> ids);
 }

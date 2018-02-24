@@ -16,21 +16,21 @@
                         <p class="card-text">
                             <#list topTenTags as tag>
                             <#if tag_index % 9 == 0>
-                                <a href="#" class="badge badge-success">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-success">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 7 == 0>
-                                <a href="#" class="badge badge-secondary">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-secondary">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 6 == 0>
-                                <a href="#" class="badge badge-dark">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-dark">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 5 == 0>
-                                <a href="#" class="badge badge-danger">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-danger">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 4 == 0>
-                                <a href="#" class="badge badge-warning">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-warning">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 3 == 0>
-                                <a href="#" class="badge badge-info">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-info">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 2 == 0>
-                                <a href="#" class="badge badge-light">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-light">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             <#elseif tag_index % 1 == 0>
-                                <a href="#" class="badge badge-primary">${tag.getTagContent()}(${tag.getTagTime()})</a>
+                                <a href="tag.html?tag=${tag.getTagContent()}" class="badge badge-primary">${tag.getTagContent()}(${tag.getTagTime()})</a>
                             </#if>
                             </#list>
                         </p>

@@ -1,5 +1,8 @@
 <#include "header.ftl">
-<#list articles.contents as article>
+<div style="margin-bottom: 10px;">
+    <b>标签：</b><span class="badge badge-success">${tag}</span>
+</div>
+<#list articles as article>
 <div class="blog-article-list card">
     <div class="card-body">
     <h4><a href="article.html?id=${article.id}">${ article.articleTitle }</a></h4>
@@ -33,7 +36,7 @@
     </div>
 </div>
 </#list>
-<#if path == "search" && articles.getTotalElements() == 0>
+<#if path == "search" && page.getTotalElements() == 0>
     <h4 class="text-center">无搜索结果！</h4>
 </#if>
 <div>
@@ -48,9 +51,9 @@
     var element = $('#bp-element');
     options = {
         bootstrapMajorVersion:4, //对应的bootstrap版本
-        currentPage: ${ articles.number + 1 }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
-        numberOfPages: ${ articles.size }, //每页页数
-        totalPages:${ articles.totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        currentPage: ${ page.number + 1 }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: ${ page.size }, //每页页数
+        totalPages:${ page.totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
         shouldShowPage:true,//是否显示该按钮
         itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
             switch (type) {

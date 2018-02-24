@@ -275,6 +275,11 @@ public class ArticleServiceImpl implements ArticleService {
                 CommentStatusConst.SHOW, pageRequest);
     }
 
+    @Override
+    public List<ArticleVO> getArticleByIds(List<Integer> ids) {
+        return getArticleVOS(repository.findAll(ids));
+    }
+
 
     private List<ArticleVO> getArticleVOS(List<Article> articles){
         // 存放所有的文章id值

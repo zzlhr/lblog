@@ -1,6 +1,9 @@
 package com.lhrsite.blog.services;
 
+import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public interface TagService {
     Integer addOneTime(String tagContent);
 
 
+    Page<ArticleTag> findArticleTag(String tag, Pageable pageable);
 
 
 }

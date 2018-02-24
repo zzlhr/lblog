@@ -72,5 +72,6 @@
     </div>
 </nav>
 <div class="container blog-content">
+
     <div class="row">
         <div class="col-xl-8 blog-main-content">

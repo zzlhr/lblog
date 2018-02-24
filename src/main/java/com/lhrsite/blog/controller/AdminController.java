@@ -193,15 +193,14 @@ public class AdminController {
                              HttpServletRequest request){
         ArticleVO articleVO = articleService.getArticleInfo(Ip.getIpAddress(request), id);
         Article article = new Article();
+
         BeanUtils.copyProperties(articleVO, article);
         article.setArticleStatus(status);
         article.setArticleContentHtml(htmlContent);
         article.setArticleContentMd(mdContent);
         article.setArticleTitle(title);
         article.setArticleDescribe(describe);
-
         String[] tagContents = tag.split(",");
-
         User user = (User) request.getSession().getAttribute("admin");
         article.setArticleAuthor(user);
         articleService.updateArticle(Ip.getIpAddress(request),
@@ -209,8 +208,6 @@ public class AdminController {
 
         return AlertVO.alert(0, "修改文章成功!");
     }
-
-
 
     @RequestMapping("/loginout.html")
     public String loginOut(HttpServletRequest request){
