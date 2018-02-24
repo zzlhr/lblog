@@ -271,6 +271,7 @@
             this.$element.prop("class", "");
 
             this.$element.addClass("pagination");
+            this.$element.addClass("justify-content-center");
 
 
             switch (size.toLowerCase()) {

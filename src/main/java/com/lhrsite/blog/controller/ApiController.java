@@ -6,6 +6,7 @@ import com.lhrsite.blog.code.Encrypt;
 import com.lhrsite.blog.consts.UserStatusConst;
 import com.lhrsite.blog.consts.UserTypeConst;
 import com.lhrsite.blog.entity.User;
+import com.lhrsite.blog.exceptions.EncryptException;
 import com.lhrsite.blog.services.ArticleService;
 import com.lhrsite.blog.services.UserService;
 import com.lhrsite.blog.util.HttpClientUtil;
@@ -65,7 +66,12 @@ public class ApiController {
         JSONObject userResult = JSONObject.parseObject(result);
         System.out.println(userResult);
         User user = userService.getUserByLoginName(userResult.getString("login"));
-        String token = Encrypt.base64Encode(UUID.randomUUID().toString().getBytes());
+        String token = null;
+        try {
+            token = Encrypt.md5AddSalt(UUID.randomUUID().toString());
+        } catch (EncryptException e) {
+            e.printStackTrace();
+        }
         if (user == null) {
             user = new User();
             user.setId(userResult.getInteger("id"));
