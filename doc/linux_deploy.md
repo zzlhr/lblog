@@ -5,7 +5,7 @@
 - 自行编译部署
 - 直接使用
 
-##### 自行编译
+#### 自行编译
 
 ```sehll 
 # 创建目录
@@ -31,6 +31,11 @@ cd lblog-master
 确认上述内容无误后
 执行
 ```sudo mvn package```
+
+打好的包在target/ 下
+
+设置为linux服务的方法参照[设置spring-boot为linux](https://www.cnblogs.com/zhengshiqiang47/p/8119944.html)
+
 
 
 
