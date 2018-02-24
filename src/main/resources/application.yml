@@ -3,7 +3,6 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
-#    password: root
     url: jdbc:mysql://localhost:3306/blog?characterEncoding=UTF-8&useSSL=true
 #    druid:
 #      #连接池
@@ -68,6 +67,7 @@ blog:
     image:
     # 配置上传图片路径
       path: /var/blog/image/
+  domain: https://www.lhrsite.com/
 
 server:
 # 服务器监听端口
@@ -82,3 +82,4 @@ github:
 # github授权信息
   clientId: 2e20720cb5be056663cf
   clientSecret: 7e9d0205f259d3f516e14a8ac8c107ada6593363
+
