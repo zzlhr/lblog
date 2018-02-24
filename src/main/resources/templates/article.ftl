@@ -48,7 +48,7 @@
             </div>
         <#else>
             <div class="float-right">
-                <a href="https://github.com/login/oauth/authorize?client_id=2e20720cb5be056663cf&redirect_uri=https://www.lhrsite.com/api/login.do" class="btn btn-sm btn-success">
+                <a href="https://github.com/login/oauth/authorize?client_id=2e20720cb5be056663cf&redirect_uri=${domain}api/login.do" class="btn btn-sm btn-success">
                     <img src="/svg/mark-github.svg" /> &nbsp;Login
                 </a>
             </div>

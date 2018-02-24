@@ -11,6 +11,7 @@ import com.lhrsite.blog.vo.PageContentVO;
 import com.lhrsite.blog.request.Ip;
 import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,9 @@ public class HomeController {
     private final TagService tagService;
 
     private final FriendLinkRepository friendLinkRepository;
+
+    @Value("${blog.domain}")
+    private String domain;
 
     @Autowired
     public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository) {
@@ -75,9 +79,8 @@ public class HomeController {
         model.addAttribute("article", articleVO);
 
         init(model);
-        System.out.println(user);
         model.addAttribute("user", user);
-
+        model.addAttribute("domain", domain);
         model.addAttribute("path", "article");
 
         model.addAttribute("comments", articleComments);
