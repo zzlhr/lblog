@@ -4,60 +4,15 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://localhost:3306/blog?characterEncoding=UTF-8&useSSL=true
-#    druid:
-#      #连接池
-#      # 下面为连接池的补充设置，应用到上面所有数据源中
-#      # 初始化大小，最小，最大
-#      initialSize: 5
-#      minIdle: 5
-#      maxActive: 20
-#      # 配置获取连接等待超时的时间
-#      maxWait: 60000
-#      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-#      timeBetweenEvictionRunsMillis: 60000
-#      # 配置一个连接在池中最小生存的时间，单位是毫秒
-#      minEvictableIdleTimeMillis: 300000
-#      validationQuery: SELECT 1
-#      testWhileIdle: true
-#      testOnBorrow: false
-#      testOnReturn: false
-#      poolPreparedStatements: true
-#      maxPoolPreparedStatementPerConnectionSize: 20
-#      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-#      filters: stat,wall,log4j
-#      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
-#      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-#      # 合并多个DruidDataSource的监控数据
-#  #    useGlobalDataSourceStat: true
-#      #开启监控
-#      stat-view-servlet:
-#        enabled: true
-#        url-pattern: /druid/*
-#        login-username: lhr
-#        login-password: lhr920
-#        allow: 127.0.0.1
-#        reset-enable: true
-#
-#      web-stat-filter:
-#        url-pattern: /*
-#      filter:
-#        stat:
-#          log-slow-sql: true
-#          slow-sql-millis: 1000
-#          merge-sql: true
-#          db-type: mysql
-#          enabled: true
-
-
 
   freemarker:
-    cache: false
+    cache: true
     suffix: .ftl
     contentType: text/html;charset=UTF-8
     requestContextAttribute: request
 
 
-#  sql语句  jpa
+  # sql语句  jpa
   jpa:
     show-sql: true
 
