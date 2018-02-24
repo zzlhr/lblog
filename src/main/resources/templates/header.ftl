@@ -13,10 +13,14 @@
         <title>lhr's-blog</title>
     </#if>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstarp.min.js"></script>
+    <#--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <#--<script src="js/jquery.slim.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <#--<script src="js/popper.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/popper.js/1.13.0/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <#--<script src="js/bootstarp.min.js"></script>-->
     <link rel="stylesheet" href="shards-ui-master/dist/css/shards.min.css">
     <link rel="stylesheet" href="shards-ui-master/dist/css/shards-extras.min.css">
     <style>
@@ -43,7 +47,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+<nav class="navbar navbar-dark bg-secondary navbar-expand-lg">
     <a class="navbar-brand" href="/">lhr的博客</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -63,7 +67,7 @@
         </ul>
         <form action="/search.html" class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-light bg-light my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>
