@@ -137,7 +137,7 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticleVO getArticleInfo(String ip, int id) {
 
         // 查询文章
-        Article article = repository.findById(id);
+        Article article = repository.findById(id).get();
 
         log.writeLog(new Log(ip, "获取文章详情id=" + id));
 
@@ -157,7 +157,7 @@ public class ArticleServiceImpl implements ArticleService {
         // 更新文章状态
 
         // 查询文章
-        Article article = repository.findOne(articleId);
+        Article article = repository.findById(articleId).get();
 
         article.setArticleStatus(status);
 
@@ -213,8 +213,8 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
 
-        tagRepository.delete(articleTagsOld);
-        tagRepository.save(articleTags);
+        tagRepository.deleteAll(articleTagsOld);
+        tagRepository.saveAll(articleTags);
 
         BeanUtils.copyProperties(result, articleVO);
 
@@ -254,7 +254,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleTag.setTagContent(tagContent);
             articleTags.add(articleTag);
         }
-        tagRepository.save(articleTags);
+        tagRepository.saveAll(articleTags);
 
 
         return getArticleVO(result);
@@ -277,7 +277,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleVO> getArticleByIds(List<Integer> ids) {
-        return getArticleVOS(repository.findAll(ids));
+        return getArticleVOS(repository.findAllById(ids));
     }
 
 

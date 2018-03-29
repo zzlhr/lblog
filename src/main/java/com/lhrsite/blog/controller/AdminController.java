@@ -147,7 +147,7 @@ public class AdminController {
     @ResponseBody
     @GetMapping("/friendlink-delect.html")
     public String delectFriendLink(Integer id){
-        friendLinkRepository.delete(id);
+        friendLinkRepository.deleteById(id);
         return AlertVO.alert(0, "删除友链成功!");
     }
 

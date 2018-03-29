@@ -42,7 +42,7 @@ public class LogServiceImpl implements LogService {
                     l.getUserName(), l.getId());
         }
 
-        repository.save(logList);
+        repository.saveAll(logList);
 
     }
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class ArticleTag implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer articleId;

@@ -26,7 +26,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
      * @param id    文章id
      * @return      文章对象
      */
-    Article findById(Integer id);
+//    Article findById(Integer id);
 
     /**
      * 通过文章id和文章状态查询

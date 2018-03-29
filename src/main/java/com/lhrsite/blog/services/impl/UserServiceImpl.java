@@ -66,12 +66,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getOne(Integer id) {
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     @Override
     public boolean updatePassword(Integer userId, String newPassword) {
-        User user = repository.findOne(userId);
+        User user = repository.findById(userId).get();
         user.setPassword(newPassword);
         repository.save(user);
         return true;
