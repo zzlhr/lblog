@@ -144,6 +144,7 @@ public class HomeController {
     @PostMapping("/send_comment")
     public String sendComment(Integer articleId, String comment,
                               HttpServletRequest request){
+
         User user = (User) request
                 .getSession()
                 .getAttribute("user");

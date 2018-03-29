@@ -2,6 +2,7 @@ package com.lhrsite.blog.services.impl;
 
 import com.lhrsite.blog.consts.ArticleStatusConst;
 import com.lhrsite.blog.consts.CommentStatusConst;
+import com.lhrsite.blog.email.MailService;
 import com.lhrsite.blog.entity.*;
 import com.lhrsite.blog.repository.ArticleCommentRepository;
 import com.lhrsite.blog.repository.ArticleRepository;
@@ -41,15 +42,18 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleTagRepository tagRepository;
 
+    private final MailService mailService;
+
 
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository repository, LogService log, TagService tagService, ArticleTagRepository tagRepository, ArticleCommentRepository commentRepository) {
+    public ArticleServiceImpl(ArticleRepository repository, LogService log, TagService tagService, ArticleTagRepository tagRepository, ArticleCommentRepository commentRepository, MailService mailService) {
         this.repository = repository;
         this.log = log;
         this.tagService = tagService;
         this.tagRepository = tagRepository;
         this.commentRepository = commentRepository;
+        this.mailService = mailService;
     }
 
     @Override
@@ -264,6 +268,15 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean sendComment(ArticleComment articleComment) {
 
         System.out.println(articleComment);
+        String content = "您的文章https://www.lhrsite.com/article.html?id="
+                + articleComment.getArticleId() + "有一条新的评论!\n" +
+                "内容如下：\n"+articleComment.getCommentContent() +
+                "\nip:" + articleComment.getCommentIp();
+        mailService.sendSimpleMail("23883997522@qq.com",
+                "lhrsite-新评论", content);
+
+
+
         // todo: 添加过滤敏感词
         return commentRepository.save(articleComment) != null;
 
@@ -271,6 +284,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Page<ArticleComment> getArticleComments(Integer articleId, PageRequest pageRequest) {
+
         return commentRepository.findByArticleIdAndCommentStatus(articleId,
                 CommentStatusConst.SHOW, pageRequest);
     }

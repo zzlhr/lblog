@@ -3,8 +3,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
 #    password: root
-    password: root
-    url: jdbc:mysql://localhost:3306/blog?characterEncoding=UTF-8&useSSL=true
+    password: LiuHaoRan114
+    url: jdbc:mysql://39.106.23.44:3306/blog?characterEncoding=UTF-8&useSSL=true
 
   freemarker:
     cache: true
@@ -12,6 +12,18 @@ spring:
     contentType: text/html;charset=UTF-8
     requestContextAttribute: request
 
+  mail:
+    host: smtp.mxhichina.com
+    username: lhr@lhrsite.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+            required: false
+    port: 25
+    password:
 
   # sql语句  jpa
   jpa:
@@ -38,4 +50,6 @@ github:
 # github授权信息
   clientId: 2e20720cb5be056663cf
   clientSecret: 7e9d0205f259d3f516e14a8ac8c107ada6593363
+
+
 

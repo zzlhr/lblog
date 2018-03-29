@@ -69,8 +69,7 @@ public class FileUtils {
   
     /** 
      * NIO way 
-     *  
-     * @param filename 
+     * @param filename
      * @return 
      * @throws IOException 
      */  

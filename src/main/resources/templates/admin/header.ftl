@@ -10,8 +10,8 @@
     <script src="../js/bootstarp.min.js"></script>
     <script src="../js/bootstrap-paginator.js"></script>
     <script src="../js/blog.js"></script>
-    <link rel="stylesheet" href="../shards-ui-master/dist/css/shards.min.css">
-    <link rel="stylesheet" href="../shards-ui-master/dist/css/shards-extras.min.css">
+    <#--<link rel="stylesheet" href="../shards-ui-master/dist/css/shards.min.css">-->
+    <#--<link rel="stylesheet" href="../shards-ui-master/dist/css/shards-extras.min.css">-->
 </head>
 <style>
     .list-group-item:first-child{
