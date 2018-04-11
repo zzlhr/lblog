@@ -1,5 +1,5 @@
 <#include "header.ftl">
-<div class="card"  style="padding-left: 20px; padding-right: 20px;">
+<div class="card">
     <div class="card-body">
         <div>
             <h3 class="text-center">${article.articleTitle}</h3>

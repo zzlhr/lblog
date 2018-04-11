@@ -37,31 +37,9 @@
                     </div>
                 </div>
 
-                <#--<div class="card" style="width: 18rem; margin-bottom: 1rem;">-->
-                    <#--<div class="card-body">-->
-                        <#--<h5 class="card-title">Archive</h5>-->
-                        <#--<div class="card-text">-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                            <#--<br/>-->
-                            <#--<a href="archive?time=1801">18-01(10)</a>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
                 <div class="card blog-left-card">
                     <div class="card-body">
-                        <h5 class="card-title">友情链接</h5>
+                        <h5 class="card-title">Friend Links</h5>
                         <div class="card-text">
                             <#list friendLinks as fl>
                                 <a href="${fl.url}">${fl.value}</a>
@@ -72,3 +50,8 @@
                 </div>
             </div>
 
+<script>
+    // 使用代码高亮
+    $('pre').addClass('prettyprint')
+    $('code').addClass('prettyprint')
+</script>

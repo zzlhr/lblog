@@ -22,6 +22,8 @@
     <#--<script src="js/bootstarp.min.js"></script>-->
     <link rel="stylesheet" href="shards-ui-master/dist/css/shards.min.css">
     <link rel="stylesheet" href="shards-ui-master/dist/css/shards-extras.min.css">
+    <link href="https://cdn.bootcss.com/prettify/r298/prettify.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/prettify/r298/run_prettify.js"></script>
     <style>
         .blog-article-list{
             margin-bottom: 3rem;
@@ -42,6 +44,9 @@
         .blog-usre-header{
             width: 40px;
             height: 40px;
+        }
+        .navbar{
+             padding: 0.5rem;
         }
     </style>
 </head>
