@@ -21,6 +21,7 @@
 #### 相关文件
 - [faq](./doc/FAQ.md)
 - sql脚本在/sql/ 下,请根据日期还原最新版本
+- [github登录授权配置](./doc/github密钥配置.md)
 
 #### 部署方式
 - [linux(以centos7为例)](./doc/linux_deploy.md)
