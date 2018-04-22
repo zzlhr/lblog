@@ -48,6 +48,9 @@
         .navbar{
              padding: 0.5rem;
         }
+        .article-img{
+            width: 100%;
+        }
     </style>
 </head>
 <body>

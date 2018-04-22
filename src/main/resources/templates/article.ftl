@@ -32,7 +32,7 @@
             </#list>
             </div>
         </div>
-        <div style="margin-top: 20px;">
+        <div class="blog-article-content" style="margin-top: 20px;">
             ${article.articleContentHtml}
         </div>
 
@@ -61,9 +61,11 @@
                     <img class="rounded-circle blog-usre-header" src="${comment.user.headerUrl}">
                     <b>${comment.user.getUsername()} <small>于${comment.createTime}</small> 说:</b>
                 </div>
+                <#escape x as x?html>
                 <div style="margin-left: 40px;">
                     <p>${comment.commentContent}</p>
                 </div>
+                </#escape>
             </#list>
             <hr />
         </div>
@@ -90,5 +92,6 @@
 </body>
 <script>
     sessionStorage.setItem("article_id", ${article.id})
+    $('.blog-article-content img').addClass('article-img');
 </script>
 </html>
