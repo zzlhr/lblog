@@ -5,9 +5,9 @@
 
 ##### 效果展示
 首页
-![home](image/home.png)
+![home](image/home2.0.png)
 文章页
-![article](image/article.png)
+![article](image/article2.0.png)
 
 
 #### 优点
