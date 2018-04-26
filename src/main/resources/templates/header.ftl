@@ -11,7 +11,7 @@
     <#else>
         <title>lhr's-blog</title>
     </#if>
-
+    <link rel="alternate" hreflang="zh-Hans" href="http://www.lhrsite.com/">
     <#--<link rel="stylesheet" href="css/bootstrap.min.css">-->
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <#--<script src="js/jquery.slim.min.js"></script>-->
