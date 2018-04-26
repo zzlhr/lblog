@@ -26,6 +26,9 @@
 #### 部署方式
 - [linux(以centos7为例)](./doc/linux_deploy.md)
 
+#### 更新记录
+
+- 详见 [更新记录](./doc/up.md)
 
 #### 欢迎大家star&fork
 #### 有好的建议或意见可以联系我。
