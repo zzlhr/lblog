@@ -5,8 +5,10 @@ import com.lhrsite.blog.entity.ArticleComment;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
+import com.lhrsite.blog.vo.PageVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -105,4 +107,15 @@ public interface ArticleService {
     Page<ArticleComment> getArticleComments(Integer articleId, PageRequest pageRequest);
 
     List<ArticleVO> getArticleByIds(List<Integer> ids);
+
+    /**
+     * 通过年月查询文章
+     * @param year      年
+     * @param month     月
+     * @param pageable  分页
+     * @return          文章对象
+     */
+    PageContentVO<ArticleVO> findArticleByYearAndMonth(
+            String year, String month, Pageable pageable);
+
 }

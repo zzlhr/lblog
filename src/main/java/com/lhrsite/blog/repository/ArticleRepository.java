@@ -5,6 +5,7 @@ import com.lhrsite.blog.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -77,5 +78,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
      */
     Page<Article> findByCreateTimeBetween(Date beginTime, Date endTime, Pageable pageable);
 
+    @Query(value="select * from article where year(create_time)=? and month(create_time) = ?", nativeQuery = true)
+    Page<Article> findByCreateTime(String year, String month, Pageable pageable);
 
 }

@@ -7,6 +7,7 @@ import com.lhrsite.blog.entity.*;
 import com.lhrsite.blog.repository.ArticleCommentRepository;
 import com.lhrsite.blog.repository.ArticleRepository;
 import com.lhrsite.blog.repository.ArticleTagRepository;
+import com.lhrsite.blog.services.ArticlePlaceService;
 import com.lhrsite.blog.services.ArticleService;
 import com.lhrsite.blog.services.LogService;
 import com.lhrsite.blog.services.TagService;
@@ -17,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -44,16 +46,22 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final MailService mailService;
 
+    private ArticlePlaceService articlePlaceService;
 
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository repository, LogService log, TagService tagService, ArticleTagRepository tagRepository, ArticleCommentRepository commentRepository, MailService mailService) {
+    public ArticleServiceImpl(ArticleRepository repository,
+                              LogService log, TagService tagService,
+                              ArticleTagRepository tagRepository,
+                              ArticleCommentRepository commentRepository,
+                              MailService mailService, ArticlePlaceService articlePlaceService) {
         this.repository = repository;
         this.log = log;
         this.tagService = tagService;
         this.tagRepository = tagRepository;
         this.commentRepository = commentRepository;
         this.mailService = mailService;
+        this.articlePlaceService = articlePlaceService;
     }
 
     @Override
@@ -236,7 +244,12 @@ public class ArticleServiceImpl implements ArticleService {
 
 
         Article result = repository.save(article);
+        // 删除标签
 
+
+
+        // 删除归档
+        articlePlaceService.place(result, 1);
 
         return getArticleVO(result);
 
@@ -258,8 +271,11 @@ public class ArticleServiceImpl implements ArticleService {
             articleTag.setTagContent(tagContent);
             articleTags.add(articleTag);
         }
+
         tagRepository.saveAll(articleTags);
 
+        // 归档
+        articlePlaceService.place(result, 0);
 
         return getArticleVO(result);
     }
@@ -267,7 +283,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public boolean sendComment(ArticleComment articleComment) {
 
-        System.out.println(articleComment);
         String content = "您的文章https://www.lhrsite.com/article.html?id="
                 + articleComment.getArticleId() + "有一条新的评论!\n" +
                 "内容如下：\n"+articleComment.getCommentContent() +
@@ -292,6 +307,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleVO> getArticleByIds(List<Integer> ids) {
         return getArticleVOS(repository.findAllById(ids));
+    }
+
+    @Override
+    public PageContentVO<ArticleVO> findArticleByYearAndMonth(String year, String month, Pageable pageable) {
+        Page<Article> articles = repository.findByCreateTime(year, month, pageable);
+
+        List<ArticleVO> articleVOS = getArticleVOS(articles.getContent());
+
+        PageContentVO pageVO = new PageContentVO();
+        pageVO.setTotalPages(articles.getTotalPages());
+        pageVO.setTotalElements(articles.getTotalElements());
+        pageVO.setNumberOfElements(articles.getNumberOfElements());
+        pageVO.setSize(articles.getSize());
+        pageVO.setContents(articleVOS);
+        return pageVO;
     }
 
 

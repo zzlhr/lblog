@@ -1,5 +1,6 @@
 package com.lhrsite.blog.services.impl;
 
+import com.lhrsite.blog.entity.Article;
 import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.Tag;
 import com.lhrsite.blog.repository.ArticleTagRepository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +62,29 @@ public class TagServiceImpl implements TagService {
 
         return repository.save(tag).getId();
     }
+
+    @Override
+    public void delectTag(Article article) {
+        List<ArticleTag> articleTags
+                = articleTagRepository
+                .findAllByArticleId(article.getId());
+
+        List<String> tags = new ArrayList<>();
+        for (ArticleTag articleTag : articleTags){
+            tags.add(articleTag.getTagContent());
+        }
+
+        List<Tag> tagList = repository.findAllByTagContent(tags);
+        for (Tag tag : tagList){
+            tag.setTagTime(tag.getTagTime() - 1);
+        }
+        repository.saveAll(tagList);
+
+
+
+        articleTagRepository.deleteAllByArticleId(article.getId());
+    }
+
 
     @Override
     public Page<ArticleTag> findArticleTag(String tag,

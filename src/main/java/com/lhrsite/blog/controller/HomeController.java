@@ -1,9 +1,11 @@
 package com.lhrsite.blog.controller;
 
+import com.lhrsite.blog.entity.Article;
 import com.lhrsite.blog.entity.ArticleComment;
 import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.repository.FriendLinkRepository;
+import com.lhrsite.blog.services.ArticlePlaceService;
 import com.lhrsite.blog.services.ArticleService;
 import com.lhrsite.blog.services.TagService;
 import com.lhrsite.blog.vo.AlertVO;
@@ -36,15 +38,16 @@ public class HomeController {
     private final TagService tagService;
 
     private final FriendLinkRepository friendLinkRepository;
-
+    private final ArticlePlaceService articlePlaceService;
     @Value("${blog.domain}")
     private String domain;
 
     @Autowired
-    public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository) {
+    public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository, ArticlePlaceService articlePlaceService) {
         this.articleService = articleService;
         this.tagService = tagService;
         this.friendLinkRepository = friendLinkRepository;
+        this.articlePlaceService = articlePlaceService;
     }
 
     @RequestMapping({"/index.html", "/"})
@@ -204,8 +207,8 @@ public class HomeController {
                       @RequestParam(defaultValue = "1") Integer page,
                       HttpServletRequest request, Model model){
         PageRequest pageRequest =
-                new PageRequest(page - 1, 10,
-                        new Sort(Sort.Direction.DESC,
+                PageRequest.of(page - 1, 10,
+                        Sort.by(Sort.Direction.DESC,
                                 "articleId"));
 
         Page<ArticleTag> articleTags =
@@ -225,9 +228,32 @@ public class HomeController {
     }
 
 
+    @GetMapping("/place.html")
+    public String place(String value,
+                        @RequestParam(defaultValue = "1") Integer page,
+                        Model model){
+        System.out.println(value);
+        String[] values = value.split("/");
+
+        PageContentVO<ArticleVO> articlePageContentVO =
+                articleService.findArticleByYearAndMonth(values[0], values[1],
+                PageRequest.of(page - 1,10));
+
+        model.addAttribute("articles", articlePageContentVO);
+        init(model);
+        model.addAttribute("path", "place");
+
+        return "articles";
+
+
+    }
+
+
+
     public Model init(Model model){
         model.addAttribute("topTenTags", tagService.getTopTenTag());
         model.addAttribute("friendLinks", friendLinkRepository.findAll());
+        model.addAttribute("places", articlePlaceService.Top10Place());
         return model;
     }
 

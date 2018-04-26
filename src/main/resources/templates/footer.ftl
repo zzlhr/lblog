@@ -9,6 +9,13 @@
                         <footer class="blockquote-footer">思考、总结是进步得捷径。</footer>
                     </div>
                 </div>
+                <div class="card blog-left-card">
+                    <div class="card-body">
+                        <h5 class="card-title">About Blog</h5>
+                        <p class="card-text">lhr的博客</p>
+                        <footer class="blockquote-footer"><a href="https://github.com/zzlhr/lblog">本站github地址</a></footer>
+                    </div>
+                </div>
 
                 <div class="card blog-left-card">
                     <div class="card-body">
@@ -36,13 +43,23 @@
                         </p>
                     </div>
                 </div>
-
                 <div class="card blog-left-card">
                     <div class="card-body">
                         <h5 class="card-title">Friend Links</h5>
                         <div class="card-text">
                             <#list friendLinks as fl>
                                 <a href="${fl.url}">${fl.value}</a>
+                                <br/>
+                            </#list>
+                        </div>
+                    </div>
+                </div>
+                <div class="card blog-left-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Place</h5>
+                        <div class="card-text">
+                            <#list places as p>
+                                <a href="place.html?value=${p.placeTag}">${p.placeTag}(${p.placeValue})</a>
                                 <br/>
                             </#list>
                         </div>

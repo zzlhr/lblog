@@ -4,6 +4,8 @@ import com.lhrsite.blog.entity.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author lhr
  * @create 2018/1/25
@@ -17,7 +19,7 @@ public interface TagRepository extends JpaRepository<Tag, Integer> {
      * @return  标签
      */
     Tag findByTagContent(String tagContent);
-
+    List<Tag> findAllByTagContent(List<String> tagContents);
 
 
 

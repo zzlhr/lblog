@@ -1,6 +1,8 @@
 package com.lhrsite.blog.vo;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 /**
  * 分页对象
@@ -8,11 +10,15 @@ import lombok.Data;
  * @create 2018/1/31
  */
 @Data
+@Builder
 public class PageVO {
+
+    @Tolerate
+    public PageVO(){}
 
     private int totalPages;
 
-    private int totalElements = 0;
+    private long totalElements = 0L;
 
     private int number;
 
