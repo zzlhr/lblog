@@ -70,9 +70,10 @@ public class HomeController {
                 articleService.getArticleInfo(Ip.getIpAddress(request), id);
 
 
+        //todo 更多评论功能
         // 获取文章评论
         List<ArticleComment> articleComments = articleService.getArticleComments(id,
-                new PageRequest(0, 10,
+                PageRequest.of(0, 10,
                         new Sort(Sort.Direction.DESC, "createTime")))
                 .getContent();
 

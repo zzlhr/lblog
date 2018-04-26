@@ -314,7 +314,6 @@ public class ArticleServiceImpl implements ArticleService {
         Page<Article> articles = repository.findByCreateTime(year, month, pageable);
 
         List<ArticleVO> articleVOS = getArticleVOS(articles.getContent());
-
         PageContentVO pageVO = new PageContentVO();
         pageVO.setTotalPages(articles.getTotalPages());
         pageVO.setTotalElements(articles.getTotalElements());
