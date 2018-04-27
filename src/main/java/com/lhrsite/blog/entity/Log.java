@@ -15,8 +15,8 @@ public class Log implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String userName;
+    private Integer id = 0;
+    private String userName = "";
     private Integer userId;
     private String userIp;
     private String operation;
