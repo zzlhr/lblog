@@ -9,7 +9,7 @@ spring:
       max-lifetime: 3600000
 
   freemarker:
-    cache: true
+    cache: false
     suffix: .ftl
     contentType: text/html;charset=UTF-8
     requestContextAttribute: request
@@ -29,7 +29,7 @@ spring:
 
   # sql语句  jpa
   jpa:
-    show-sql: true
+    show-sql: false
 
 
 blog:
@@ -45,13 +45,13 @@ server:
   port: 8080
 logging:
   # 日志文件名称
-  file: blog.log
+  file: /var/blog/logs/blog.log
   # 日志文件路径
-  path: /var/blog/log
+  path: /var/blog/logs
 
 github:
 # github授权信息
-  clientId: 2e20720cb5be056663cf
+  clientId: 2e20720cb5be05666 3cf
   clientSecret: 7e9d0205f259d3f516e14a8ac8c107ada6593363
 
 

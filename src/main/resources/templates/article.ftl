@@ -5,16 +5,16 @@
             <h3 class="text-center">${article.articleTitle}</h3>
             <p class="text-center text-muted" style="margin-bottom: 0;">
                 <small>
-                    <span>点击数: ${article.articleInfo.articleClick}</span>
-                    <span>评论数: ${article.articleInfo.articleCommemt}</span>
-                    <span>点赞数: ${article.articleInfo.articleZan}</span>
+                    <span>点击数: ${article.articleInfo.articleClick !0}</span>
+                    <span>评论数: ${article.articleInfo.articleCommemt !0}</span>
+                    <span>点赞数: ${article.articleInfo.articleZan !0}</span>
                 </small>
             </p>
             <p class="text-center text-muted" style="margin-bottom: 0;">
                 <small>
-                    <span>作者: ${article.articleAuthor.username}</span>
-                    <span>发布时间: ${article.createTime}</span>
-                    <span>更新时间: ${article.updateTime}</span>
+                    <span>作者: ${article.articleAuthor.username !""}</span>
+                    <span>发布时间: ${article.createTime !""}</span>
+                    <span>更新时间: ${article.updateTime !""}</span>
                 </small>
             </p>
 
