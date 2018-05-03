@@ -2,7 +2,6 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-#    password: root
     password: root
     url: jdbc:mysql://127.0.0.1/blog?characterEncoding=UTF-8&useSSL=false
     hikari:
@@ -42,7 +41,8 @@ blog:
 
 server:
 # 服务器监听端口
-  port: 8080
+  port: 8089
+
 logging:
   # 日志文件名称
   file: /var/blog/logs/blog.log
