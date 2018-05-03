@@ -82,6 +82,14 @@ public class UserServiceImpl implements UserService {
         return repository.save(user);
     }
 
+    @Override
+    public User initUser(User user) {
+        if (repository.findAll().size() != 0){
+            return null;
+        }
+        return repository.save(user);
+    }
+
 
     @Override
     public User getUserByLoginName(String loginName) {

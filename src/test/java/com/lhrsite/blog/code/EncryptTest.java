@@ -17,7 +17,6 @@ public class EncryptTest {
 
     @Test
     public void md5AddSalt() throws EncryptException {
-        System.out.println(Encrypt.md5AddSalt("Liu19990114"));
     }
 
     @Test

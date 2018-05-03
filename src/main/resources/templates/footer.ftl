@@ -5,14 +5,14 @@
                 <div class="card blog-left-card">
                     <div class="card-body">
                         <h5 class="card-title">About me</h5>
-                        <p class="card-text">刘浩然</p>
+                        <p class="card-text">${(website.masterName) !""}</p>
                         <footer class="blockquote-footer">思考、总结是进步得捷径。</footer>
                     </div>
                 </div>
                 <div class="card blog-left-card">
                     <div class="card-body">
                         <h5 class="card-title">About Blog</h5>
-                        <p class="card-text">lhr的博客</p>
+                        <p class="card-text">${(website.name) !""}</p>
                         <footer class="blockquote-footer"><a href="https://github.com/zzlhr/lblog">本站github地址</a></footer>
                     </div>
                 </div>
@@ -67,6 +67,10 @@
                 </div>
             </div>
 
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.13.0/popper.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/prettify/r298/run_prettify.js"></script>
 <script>
     // 使用代码高亮
     $('pre').addClass('prettyprint')

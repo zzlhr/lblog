@@ -3,19 +3,20 @@ package com.lhrsite.blog.entity;
 import com.lhrsite.blog.consts.UserStatusConst;
 import com.lhrsite.blog.code.Encrypt;
 import com.lhrsite.blog.exceptions.EncryptException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import lombok.experimental.Tolerate;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class User implements Serializable {
+
+    @Tolerate
+    public User(){}
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,13 +1,14 @@
 package com.lhrsite.blog.controller;
 
-import com.lhrsite.blog.entity.Article;
 import com.lhrsite.blog.entity.ArticleComment;
 import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.User;
+import com.lhrsite.blog.entity.Website;
 import com.lhrsite.blog.repository.FriendLinkRepository;
 import com.lhrsite.blog.services.ArticlePlaceService;
 import com.lhrsite.blog.services.ArticleService;
 import com.lhrsite.blog.services.TagService;
+import com.lhrsite.blog.services.WebsiteService;
 import com.lhrsite.blog.vo.AlertVO;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
@@ -39,15 +40,17 @@ public class HomeController {
 
     private final FriendLinkRepository friendLinkRepository;
     private final ArticlePlaceService articlePlaceService;
+    private final WebsiteService websiteService;
     @Value("${blog.domain}")
     private String domain;
 
     @Autowired
-    public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository, ArticlePlaceService articlePlaceService) {
+    public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository, ArticlePlaceService articlePlaceService, WebsiteService websiteService) {
         this.articleService = articleService;
         this.tagService = tagService;
         this.friendLinkRepository = friendLinkRepository;
         this.articlePlaceService = articlePlaceService;
+        this.websiteService = websiteService;
     }
 
     @RequestMapping({"/index.html", "/"})
@@ -257,9 +260,12 @@ public class HomeController {
 
 
     public Model init(Model model){
+        Website website = websiteService.getWebsite();
+        System.out.println(website);
         model.addAttribute("topTenTags", tagService.getTopTenTag());
         model.addAttribute("friendLinks", friendLinkRepository.findAll());
         model.addAttribute("places", articlePlaceService.Top10Place());
+        model.addAttribute("website", website);
         return model;
     }
 

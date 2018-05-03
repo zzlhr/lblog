@@ -45,4 +45,7 @@ public interface UserService {
 
 
     User saveUser(User user);
+
+
+    User initUser(User user);
 }
