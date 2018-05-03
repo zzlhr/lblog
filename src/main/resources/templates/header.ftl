@@ -9,7 +9,9 @@
         <meta name="keywords" content="<#list article.getTagList() as tag>${tag.getTagContent()},</#list>">
         <meta name="description" content="${article.articleDescribe}">
     <#else>
-        <title>lhr's-blog</title>
+        <title>刘浩然的博客</title>
+        <meta name="keywords" content="刘浩然的博客,Java,Web,程序员,博客,Python,C,golang,javascript,spring boot,spring data,spring data jpa,数据库,分布式,微服务,spring cloud">
+        <meta name="description" content="记录技术的点滴，分享每一个突破。">
     </#if>
     <link rel="alternate" hreflang="zh-Hans" href="http://www.lhrsite.com/">
     <#--<link rel="stylesheet" href="css/bootstrap.min.css">-->
@@ -55,7 +57,7 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-secondary navbar-expand-lg">
-    <a class="navbar-brand" href="/">lhr的博客</a>
+    <a class="navbar-brand" href="/">刘浩然的博客</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
