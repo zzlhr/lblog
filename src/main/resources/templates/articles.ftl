@@ -4,7 +4,7 @@
     <div class="card-body">
     <h4><a href="article.html?id=${article.id}">${ article.articleTitle }</a></h4>
     <div>
-        <small class="text-muted">由 ${article.articleAuthor.username} 发表于 ${ article.createTime } 更新与 ${ article.updateTime }</small>
+        <small class="text-muted">由 ${article.articleAuthor.username} 发表于 ${ article.createTime } 更新与 ${ article.updateTime } &nbsp;&nbsp; 点击数: ${article.articleInfo.articleClick ! 0} &nbsp;&nbsp; 评论数: ${article.articleInfo.articleCommemt ! '0'}  &nbsp;&nbsp; 点赞数: ${article.articleInfo.articleZan!'0'} </small>
     </div>
     <div>
         <#list article.getTagList() as tag>

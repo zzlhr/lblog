@@ -1,8 +1,11 @@
 package com.lhrsite.blog.vo;
 
+import com.lhrsite.blog.entity.ArticleInfo;
 import com.lhrsite.blog.entity.ArticleTag;
 import com.lhrsite.blog.entity.User;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,11 @@ import java.util.List;
  * @create 2018/1/27
  */
 @Data
+@Builder
 public class ArticleVO {
 
+    @Tolerate
+    public ArticleVO(){}
 
     private Integer id;
 
@@ -38,5 +44,7 @@ public class ArticleVO {
     private java.util.Date updateTime;
 
     private List<ArticleTag> tagList = new ArrayList<>();
+
+    private ArticleInfo articleInfo;
 
 }

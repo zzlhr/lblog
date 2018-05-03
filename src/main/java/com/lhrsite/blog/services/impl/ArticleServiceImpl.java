@@ -5,6 +5,7 @@ import com.lhrsite.blog.consts.CommentStatusConst;
 import com.lhrsite.blog.email.MailService;
 import com.lhrsite.blog.entity.*;
 import com.lhrsite.blog.repository.ArticleCommentRepository;
+import com.lhrsite.blog.repository.ArticleInfoRepository;
 import com.lhrsite.blog.repository.ArticleRepository;
 import com.lhrsite.blog.repository.ArticleTagRepository;
 import com.lhrsite.blog.services.ArticlePlaceService;
@@ -48,13 +49,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     private ArticlePlaceService articlePlaceService;
 
+    private ArticleInfoRepository articleInfoRepository;
 
     @Autowired
     public ArticleServiceImpl(ArticleRepository repository,
                               LogService log, TagService tagService,
                               ArticleTagRepository tagRepository,
                               ArticleCommentRepository commentRepository,
-                              MailService mailService, ArticlePlaceService articlePlaceService) {
+                              MailService mailService,
+                              ArticlePlaceService articlePlaceService,
+                              ArticleInfoRepository articleInfoRepository) {
         this.repository = repository;
         this.log = log;
         this.tagService = tagService;
@@ -62,6 +66,7 @@ public class ArticleServiceImpl implements ArticleService {
         this.commentRepository = commentRepository;
         this.mailService = mailService;
         this.articlePlaceService = articlePlaceService;
+        this.articleInfoRepository = articleInfoRepository;
     }
 
     @Override
@@ -150,12 +155,12 @@ public class ArticleServiceImpl implements ArticleService {
 
         // 查询文章
         Article article = repository.findById(id).get();
+        ArticleInfo articleInfo = articleInfoRepository.findById(id).get();
 
         log.writeLog(new Log(ip, "获取文章详情id=" + id));
 
         // 判断状态是否为show
         if (article.getArticleStatus().equals(ArticleStatusConst.SHOW)){
-
             return getArticleVO(article);
         }
 
@@ -235,23 +240,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleVO delectArticle(String ip, Article article, User user) {
-
+        // 假删除
 
         log.writeLog(new Log(user.getUsername(),
                 user.getId(), ip, "删除文章id=" + article.getId()));
 
         article.setArticleStatus(ArticleStatusConst.DELECT);
 
-
         Article result = repository.save(article);
         // 删除标签
-
-
 
         // 删除归档
         articlePlaceService.place(result, 1);
 
-        return getArticleVO(result);
+        return getArticleVO(result, null);
 
     }
 
@@ -277,8 +279,23 @@ public class ArticleServiceImpl implements ArticleService {
         // 归档
         articlePlaceService.place(result, 0);
 
+        // 创建点赞评论记录详情
+        addArticleInfo(result.getId());
+
         return getArticleVO(result);
     }
+
+
+    /**
+     * 创建初始化文章详情
+     * @param articleId 文章id
+     */
+    private void addArticleInfo(Integer articleId){
+        ArticleInfo articleInfo = ArticleInfo.builder().articleId(articleId).build();
+        articleInfoRepository.save(articleInfo);
+    }
+
+
 
     @Override
     public boolean sendComment(ArticleComment articleComment) {
@@ -289,7 +306,6 @@ public class ArticleServiceImpl implements ArticleService {
                 "\nip:" + articleComment.getCommentIp();
         mailService.sendSimpleMail("23883997522@qq.com",
                 "lhrsite-新评论", content);
-
 
 
         // todo: 添加过滤敏感词
@@ -323,6 +339,36 @@ public class ArticleServiceImpl implements ArticleService {
         return pageVO;
     }
 
+    @Override
+    public ArticleInfo upInfo(Integer type, Integer articleId) {
+        ArticleInfo articleInfo
+                = articleInfoRepository.findById(articleId).get();
+        switch (type){
+            case 0:
+
+                articleInfo.setArticleClick(
+                        articleInfo.getArticleClick() + 1);
+
+                break;
+            case 1:
+
+                articleInfo.setArticleZan(
+                        articleInfo.getArticleZan() + 1);
+
+                break;
+
+            case 2:
+
+                articleInfo.setArticleCommemt(
+                        articleInfo.getArticleCommemt() + 1);
+                break;
+
+            default:
+                throw new RuntimeException("传入类型错误！");
+        }
+        return articleInfoRepository.save(articleInfo);
+    }
+
 
     private List<ArticleVO> getArticleVOS(List<Article> articles){
         // 存放所有的文章id值
@@ -338,8 +384,10 @@ public class ArticleServiceImpl implements ArticleService {
 
         // 拼装文章视图对象
         List<ArticleVO> result = new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
         for (Article article : articles){
             ArticleVO articleVO = new ArticleVO();
+            ids.add(article.getId());
             BeanUtils.copyProperties(article, articleVO);
             for (ArticleTag tag : tags){
                 if (tag.getArticleId().equals(article.getId())){
@@ -348,6 +396,17 @@ public class ArticleServiceImpl implements ArticleService {
             }
             result.add(articleVO);
         }
+        List<ArticleInfo> articleInfos
+                = articleInfoRepository.findAllById(ids);
+
+        for (ArticleInfo articleInfo : articleInfos){
+            for (ArticleVO articleVO : result){
+                if (articleVO.getId().equals(articleInfo.getArticleId())){
+                    articleVO.setArticleInfo(articleInfo);
+                }
+            }
+        }
+
         return result;
     }
 
@@ -356,9 +415,27 @@ public class ArticleServiceImpl implements ArticleService {
         // 根据文章id查询文章标签
         List<ArticleTag> tags = tagRepository.findAllByArticleId(article.getId());
 
+
         // 拼装文章视图对象
         ArticleVO articleVO = new ArticleVO();
         BeanUtils.copyProperties(article, articleVO);
+
+        ArticleInfo articleInfo
+                = articleInfoRepository.findById(article.getId()).get();
+
+        articleVO.setArticleInfo(articleInfo);
+        articleVO.setTagList(tags);
+        return articleVO;
+    }
+
+    private ArticleVO getArticleVO(Article article, ArticleInfo articleInfo){
+
+        // 根据文章id查询文章标签
+        List<ArticleTag> tags = tagRepository.findAllByArticleId(article.getId());
+        // 拼装文章视图对象
+        ArticleVO articleVO = new ArticleVO();
+        BeanUtils.copyProperties(article, articleVO);
+        articleVO.setArticleInfo(articleInfo);
         articleVO.setTagList(tags);
         return articleVO;
     }

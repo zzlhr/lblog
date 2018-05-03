@@ -1,0 +1,33 @@
+.hs_header{
+    height: 58px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+}
+.hs_nav_title{
+    align-self:flex-start;
+    margin-top: 10px !important;
+}
+.hs_nav_menu{
+    position: absolute;
+    right: 10px;
+}
+/*手风琴*/
+.hs_accordion{
+    width: 100%;
+    height:100%;
+}
+.hs_menu_list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.hs_menu_list>li{
+    font-size: 18px;
+    margin: 5px;
+}
+.hs_menu_list>.action{
+    background: #cce6ff;
+}

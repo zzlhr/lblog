@@ -2,6 +2,7 @@ package com.lhrsite.blog.services;
 
 import com.lhrsite.blog.entity.Article;
 import com.lhrsite.blog.entity.ArticleComment;
+import com.lhrsite.blog.entity.ArticleInfo;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
@@ -69,14 +70,12 @@ public interface ArticleService {
     ArticleVO updateArticle(String ip, Article article, String[] tagContents, User user);
 
     /**
-     * 删除文章
+     * 删除文章-修改状态
      * @param ip    操作ip
      * @param article   文章对象
      * @param user      用户
      * @return          删除后的文章对象
      */
-
-
     ArticleVO delectArticle(String ip, Article article, User user);
 
     /**
@@ -117,5 +116,14 @@ public interface ArticleService {
      */
     PageContentVO<ArticleVO> findArticleByYearAndMonth(
             String year, String month, Pageable pageable);
+
+
+    /**
+     * 更新文章详情（点击数，点赞数，评论数）
+     * @param type 0点击，1点赞，2评论
+     * @param articleId 文章id
+     * @return 返回更新后的文章详情
+     */
+    ArticleInfo upInfo(Integer type, Integer articleId);
 
 }

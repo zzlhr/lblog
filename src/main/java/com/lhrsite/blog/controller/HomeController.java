@@ -66,8 +66,12 @@ public class HomeController {
     @GetMapping("/article.html")
     public String article(Integer id, HttpServletRequest request, Model model){
 
+        // 添加点击
+        articleService.upInfo(0, id);
+
         ArticleVO articleVO =
                 articleService.getArticleInfo(Ip.getIpAddress(request), id);
+
 
 
         //todo 更多评论功能
@@ -103,6 +107,8 @@ public class HomeController {
         PageContentVO<ArticleVO> articles =
                 articleService.getArticleList(
                         keyword, Ip.getIpAddress(request), pageRequest);
+//        System.out.println(articles);
+
         model.addAttribute("articles", articles);
         model.addAttribute("path", "articles");
         init(model);
@@ -146,8 +152,9 @@ public class HomeController {
 
     @ResponseBody
     @PostMapping("/send_comment")
-    public String sendComment(Integer articleId, String comment,
-                              HttpServletRequest request){
+    public String sendComment(
+            @RequestParam(defaultValue = "0") Integer articleId,
+            String comment, HttpServletRequest request){
 
         User user = (User) request
                 .getSession()
@@ -159,7 +166,7 @@ public class HomeController {
 
         ArticleComment articleComment = new ArticleComment();
 
-        if (articleId == null || "".equals(articleId)){
+        if (articleId == 0){
             return AlertVO.alert(-1, "文章id不能为空");
         }
 
@@ -177,11 +184,6 @@ public class HomeController {
         }
         articleComment.setCommentContent(comment);
 
-
-        if (articleId == null || "".equals(articleId)){
-            code = -1;
-            msg = "文章id不能为空";
-        }
         articleComment.setArticleId(articleId);
 
         if (userId == null){
@@ -196,6 +198,9 @@ public class HomeController {
         if (code == -1 || !articleService.sendComment(articleComment)){
             code = -1;
             msg = "发布评论失败！";
+        }else{
+            // 添加留言
+            articleService.upInfo(3, articleId);
         }
         return AlertVO.alertAndSuccessGoToPath(code,
                 msg,
