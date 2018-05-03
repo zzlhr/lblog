@@ -252,7 +252,7 @@ public class AdminController {
 
         try {
 
-            if(!user.getPassword().equals(Encrypt.base64Encode(Encrypt.md5AddSalt(oldPassword)))){
+            if(!user.getPassword().equals(Encrypt.md5AddSalt(oldPassword))){
                 return AlertVO.alert(-1, "旧密码验证未通过");
             }
         } catch (EncryptException e) {
