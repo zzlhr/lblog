@@ -31,13 +31,11 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String uri = request.getRequestURI();
         String[] uris = uri.split("\\.");
-        if (!uri.contains("/admin")){
+        if (!uri.contains("/admin") || "/admin/login.html".equals(uri) || "/admin/login.do".equals(uri)){
             filterChain.doFilter(servletRequest, servletResponse);
-        } else if ("do".equals(uris[uris.length - 1]) || "html".equals(uris[uris.length - 1])){
+        } else{
             Object userToken, userName;
-            if ("/admin/login.html".equals(uri) || "/admin/login.do".equals(uri)){
-
-            }else if ((userToken = request.getSession().getAttribute("userToken")) == null ||
+            if ((userToken = request.getSession().getAttribute("userToken")) == null ||
                     (userName = request.getSession().getAttribute("userName")) == null ||
                     !userService.isLogin(userToken.toString(), userName.toString())){
                 HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -46,10 +44,10 @@ public class AdminFilter implements Filter {
                 out.println("<script>alert(\"请先登录\");location.href=\"/admin/login.html\";</script>");
                 out.flush();
                 out.close();
-                return;
+            }else {
+                filterChain.doFilter(servletRequest, servletResponse);
             }
         }
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
