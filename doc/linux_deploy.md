@@ -35,7 +35,7 @@ cd lblog-master
 打好的包在target/ 下
 
 #### 3.还原数据库
-还原数据库 [文件](../sql/install.sql)
+还原数据库 [文件](../sql/blog.sql)
 
 #### 4.配置服务
 设置为linux服务的方法参照[设置spring-boot为linux](https://www.cnblogs.com/zhengshiqiang47/p/8119944.html)
