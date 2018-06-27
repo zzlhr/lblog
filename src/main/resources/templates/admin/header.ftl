@@ -58,6 +58,10 @@
         top: 0;
         z-index: 999;
     }
+    .page-link{
+        background-color: #32383e;
+        border-color: #32383e;
+    }
 </style>
 <body>
 <script>
