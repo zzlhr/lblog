@@ -66,11 +66,15 @@
                     </div>
                 </div>
             </div>
+<div class="footer">
+    <p>© 2018 刘浩然的博客. </p>
+</div>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.13.0/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/prettify/r298/run_prettify.js"></script>
+<#--<script src="https://cdn.bootcss.com/prism/9000.0.1/prism.min.js"></script>-->
+<script src="./js/run_prettify.js"></script>
 <script>
     // 使用代码高亮
     $('pre').addClass('prettyprint')

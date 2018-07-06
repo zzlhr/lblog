@@ -17,10 +17,11 @@
     <#--<link rel="stylesheet" href="css/bootstrap.min.css">-->
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <#--<script src="js/jquery.slim.min.js"></script>-->
-
     <#--<script src="js/bootstarp.min.js"></script>-->
+    <#--<link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="shards-ui-master/dist/css/shards.min.css">
     <link rel="stylesheet" href="shards-ui-master/dist/css/shards-extras.min.css">
+    <link href="https://cdn.bootcss.com/prettify/r298/prettify.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/prettify/r298/prettify.min.css" rel="stylesheet">
     <style>
         .blog-article-list{

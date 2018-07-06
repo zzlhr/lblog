@@ -9,8 +9,6 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Log implements Serializable {
 
     @Id
