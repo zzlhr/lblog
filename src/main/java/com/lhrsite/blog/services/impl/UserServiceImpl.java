@@ -5,6 +5,7 @@ import com.lhrsite.blog.repository.UserRepository;
 import com.lhrsite.blog.services.UserService;
 import com.lhrsite.blog.code.Encrypt;
 import com.lhrsite.blog.exceptions.EncryptException;
+import com.lhrsite.blog.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
             System.out.println(password);
             System.out.println(user);
             if (password.equals(user.getPassword())){
-                String token = Encrypt.md5AddSalt(UUID.randomUUID().toString());
+                String token = LoginUtil.makeToken();
                 user.setToken(token);
                 repository.save(user);
                 return user;
