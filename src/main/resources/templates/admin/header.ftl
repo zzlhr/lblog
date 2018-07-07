@@ -97,6 +97,7 @@
         <div class="blog-admin-menu bg-secondary">
             <a class="list-group-item list-group-item-secondary list-group-item-action <#if title == "文章管理">active</#if>" href="articles.html">文章管理</a>
             <a class="list-group-item list-group-item-secondary list-group-item-action <#if title == "友链管理">active</#if>" href="friendlink.html">友链管理</a>
+            <a class="list-group-item list-group-item-secondary list-group-item-action <#if title == "评论管理">active</#if>" href="comments.html">评论管理</a>
         </div>
         <div class="blog-row">
 

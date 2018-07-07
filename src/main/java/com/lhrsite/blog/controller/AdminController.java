@@ -2,7 +2,7 @@ package com.lhrsite.blog.controller;
 
 import com.lhrsite.blog.code.Encrypt;
 import com.lhrsite.blog.entity.Article;
-import com.lhrsite.blog.entity.ArticleStatistics;
+import com.lhrsite.blog.entity.ArticleComment;
 import com.lhrsite.blog.entity.FriendLink;
 import com.lhrsite.blog.entity.User;
 import com.lhrsite.blog.enums.ResultCodeEnums;
@@ -15,10 +15,12 @@ import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
 import com.lhrsite.blog.vo.UploadVO;
 import com.lhrsite.blog.request.Ip;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -27,13 +29,13 @@ import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * 后台管理
@@ -53,13 +55,18 @@ public class AdminController {
     private final Environment env;
 
     private final FriendLinkRepository friendLinkRepository;
+    @PersistenceContext
+    private final EntityManager entityManager;
 
+    private JPAQueryFactory queryFactory;
     @Autowired
-    public AdminController(ArticleService articleService, UserService userService, Environment env, FriendLinkRepository friendLinkRepository) {
+    public AdminController(ArticleService articleService, UserService userService, Environment env, FriendLinkRepository friendLinkRepository, EntityManager entityManager) {
         this.articleService = articleService;
         this.userService = userService;
         this.friendLinkRepository = friendLinkRepository;
         this.env = env;
+        this.entityManager = entityManager;
+        queryFactory = new JPAQueryFactory(entityManager);
     }
 
     @RequestMapping({"/index.html", "/"})
@@ -113,7 +120,7 @@ public class AdminController {
                            Model model, HttpServletRequest request){
         model.addAttribute("title", "文章管理");
 
-        PageRequest pageRequest = new PageRequest(page - 1, 10,
+        PageRequest pageRequest = PageRequest.of(page - 1, 10,
                 new Sort(Sort.Direction.DESC, "id"));
         PageContentVO<ArticleVO> articleVOPageContentVO =
                 articleService.getArticleList(Ip.getIpAddress(request), pageRequest, null);
@@ -394,9 +401,29 @@ public class AdminController {
         return result;
     }
 
+    @GetMapping("/comments.html")
+    public String commentList(
+            @RequestParam(defaultValue = "1") Integer page, Model model){
+        PageRequest pageRequest = PageRequest.of(
+                page - 1, 10,
+                Sort.by(Sort.Direction.DESC, "createTime"));
+        model.addAttribute("title", "评论管理");
+        Page<ArticleComment> articleCommentPage =
+                articleService.getArticleComments(pageRequest);
+        model.addAttribute("comments", articleCommentPage);
 
 
+        return "admin/comment";
+    }
 
+
+    @ResponseBody
+    @GetMapping("/comment-delect.html")
+    public String delectComment(Integer id){
+        articleService.delectComment(id);
+
+        return AlertVO.alert(0, "删除成功！");
+    }
 
 
 }

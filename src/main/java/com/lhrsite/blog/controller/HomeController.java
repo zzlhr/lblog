@@ -1,9 +1,6 @@
 package com.lhrsite.blog.controller;
 
-import com.lhrsite.blog.entity.ArticleComment;
-import com.lhrsite.blog.entity.ArticleTag;
-import com.lhrsite.blog.entity.User;
-import com.lhrsite.blog.entity.Website;
+import com.lhrsite.blog.entity.*;
 import com.lhrsite.blog.repository.FriendLinkRepository;
 import com.lhrsite.blog.services.ArticlePlaceService;
 import com.lhrsite.blog.services.ArticleService;
@@ -13,6 +10,7 @@ import com.lhrsite.blog.vo.AlertVO;
 import com.lhrsite.blog.vo.ArticleVO;
 import com.lhrsite.blog.vo.PageContentVO;
 import com.lhrsite.blog.request.Ip;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -22,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +44,20 @@ public class HomeController {
     @Value("${blog.domain}")
     private String domain;
 
+    @PersistenceContext
+    private final EntityManager entityManager;
+
+    private JPAQueryFactory queryFactory;
+
     @Autowired
-    public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository, ArticlePlaceService articlePlaceService, WebsiteService websiteService) {
+    public HomeController(ArticleService articleService, TagService tagService, FriendLinkRepository friendLinkRepository, ArticlePlaceService articlePlaceService, WebsiteService websiteService, EntityManager entityManager) {
         this.articleService = articleService;
         this.tagService = tagService;
         this.friendLinkRepository = friendLinkRepository;
         this.articlePlaceService = articlePlaceService;
         this.websiteService = websiteService;
+        this.entityManager = entityManager;
+        queryFactory = new JPAQueryFactory(entityManager);
     }
 
     @RequestMapping({"/index.html", "/"})
@@ -104,7 +111,7 @@ public class HomeController {
     public String articles(@RequestParam(defaultValue = "") String keyword,
                            @RequestParam(defaultValue = "1") Integer page,
                            HttpServletRequest request, Model model){
-        PageRequest pageRequest = new PageRequest(page - 1, 10,
+        PageRequest pageRequest = PageRequest.of(page - 1, 10,
                 new Sort(Sort.Direction.DESC, "updateTime"));
 
         PageContentVO<ArticleVO> articles =
@@ -142,7 +149,7 @@ public class HomeController {
                 return "redirect:goto.html?u=http://love.lhrsite.com/";
             }
             PageRequest pageRequest =
-                    new PageRequest(page - 1, 10,
+                    PageRequest.of(page - 1, 10,
                             new Sort(Sort.Direction.DESC, "id"));
 
             articleVOS= articleService.
@@ -189,8 +196,9 @@ public class HomeController {
             msg = "评论内容不能为空";
         }
         articleComment.setCommentContent(comment);
-
-        articleComment.setArticleId(articleId);
+        Article article = new Article();
+        article.setId(articleId);
+        articleComment.setArticle(article);
 
         if (userId == null){
             code = -1;

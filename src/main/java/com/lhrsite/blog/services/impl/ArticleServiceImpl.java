@@ -307,7 +307,7 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean sendComment(ArticleComment articleComment) {
 
         String content = "您的文章https://www.lhrsite.com/article.html?id="
-                + articleComment.getArticleId() + "有一条新的评论!\n" +
+                + articleComment.getArticle().getId() + "有一条新的评论!\n" +
                 "内容如下：\n"+articleComment.getCommentContent() +
                 "\nip:" + articleComment.getCommentIp();
         mailService.sendSimpleMail("23883997522@qq.com",
@@ -324,6 +324,22 @@ public class ArticleServiceImpl implements ArticleService {
 
         return commentRepository.findByArticleIdAndCommentStatus(articleId,
                 CommentStatusConst.SHOW, pageRequest);
+    }
+
+    @Override
+    public Page<ArticleComment> getArticleComments(Pageable page) {
+        return commentRepository.findAll(page);
+    }
+
+    @Override
+    public ArticleComment getArticleComment(Integer id) {
+        return commentRepository.findById(id).get();
+    }
+    @Override
+    public void delectComment(Integer id) {
+        ArticleComment articleComment = commentRepository.findById(id).get();
+        articleComment.setCommentStatus(CommentStatusConst.DELECT);
+        commentRepository.save(articleComment);
     }
 
     @Override

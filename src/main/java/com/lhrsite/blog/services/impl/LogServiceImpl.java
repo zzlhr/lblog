@@ -51,7 +51,7 @@ public class LogServiceImpl implements LogService {
 
 
         PageRequest pageRequest
-                = new PageRequest(page - 1, 10,
+                = PageRequest.of(page - 1, 10,
                 new Sort(Sort.Direction.DESC, "id"));
 
 

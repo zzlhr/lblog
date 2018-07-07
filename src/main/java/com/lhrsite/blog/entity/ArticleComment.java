@@ -22,7 +22,9 @@ public class ArticleComment implements Serializable {
     private Integer id;
 
     /** 文章id */
-    private Integer articleId;
+    @OneToOne(targetEntity = Article.class)
+    @JoinColumn(name = "article_id", referencedColumnName = "id")
+    private Article article;
 
     /** 用户id */
     @OneToOne(targetEntity = User.class)

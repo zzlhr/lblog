@@ -66,11 +66,11 @@
 
         <div>
             <#list comments as comment>
+                <#escape x as x?html>
                 <div>
                     <img class="rounded-circle blog-usre-header" src="${comment.user.headerUrl}">
                     <b>${comment.user.getUsername()} <small>于${comment.createTime}</small> 说:</b>
                 </div>
-                <#escape x as x?html>
                 <div style="margin-left: 40px;">
                     <p>${comment.commentContent}</p>
                 </div>

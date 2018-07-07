@@ -105,6 +105,22 @@ public interface ArticleService {
      */
     Page<ArticleComment> getArticleComments(Integer articleId, PageRequest pageRequest);
 
+
+    /**
+     * 获取文章评论-后台使用
+     * @param page 分页
+     * @return  评论内容
+     */
+    Page<ArticleComment> getArticleComments(Pageable page);
+    /**
+     * 获取文章评论-后台使用
+     * @param page 分页
+     * @return  评论内容
+     */
+    ArticleComment getArticleComment(Integer id);
+
+    void delectComment(Integer id);
+
     List<ArticleVO> getArticleByIds(List<Integer> ids);
 
     /**

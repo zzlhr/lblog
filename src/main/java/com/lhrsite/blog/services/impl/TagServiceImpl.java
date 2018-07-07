@@ -39,7 +39,7 @@ public class TagServiceImpl implements TagService {
     public List<Tag> getTopTenTag() {
 
         return repository.findAll(
-                new PageRequest(0,10,
+                PageRequest.of(0,10,
                         new Sort(Sort.Direction.DESC, "tagTime"))).getContent();
     }
 
