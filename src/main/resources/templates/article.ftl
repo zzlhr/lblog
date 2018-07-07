@@ -1,5 +1,5 @@
 <#include "header.ftl">
-<div class="card">
+<div class="card blog-clarity">
     <div class="card-body">
         <div>
             <h3 class="text-center">${article.articleTitle}</h3>
@@ -48,7 +48,7 @@
         <div></div>
     </div>
 </div>
-<div class="blog-article-comment card">
+<div class="blog-article-comment card blog-clarity">
     <div class="card-body">
         <span style="font: 30;">评论</span>
         <#if user??>

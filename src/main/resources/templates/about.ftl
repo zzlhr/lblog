@@ -1,5 +1,5 @@
 <#include "header.ftl">
-<div class="card">
+<div class="card blog-about">
     <div class="card-body">
         <h3>关于我</h3>
         <hr />

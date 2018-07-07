@@ -263,6 +263,7 @@ public class ArticleServiceImpl implements ArticleService {
         log.writeLog(new Log(user.getUsername(),
                 user.getId(), ip, "添加文章id=" + article.getId()));
 
+        System.out.println(article.getArticleContentHtml());
         Article result = repository.save(article);
 
         List<ArticleTag> articleTags = new ArrayList<>();
@@ -291,7 +292,12 @@ public class ArticleServiceImpl implements ArticleService {
      * @param articleId 文章id
      */
     private void addArticleInfo(Integer articleId){
-        ArticleInfo articleInfo = ArticleInfo.builder().articleId(articleId).build();
+        ArticleInfo articleInfo = ArticleInfo.builder()
+                .articleId(articleId)
+                .articleClick(0)
+                .articleCommemt(0)
+                .articleZan(0)
+                .build();
         articleInfoRepository.save(articleInfo);
     }
 

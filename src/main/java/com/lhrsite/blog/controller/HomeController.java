@@ -138,6 +138,9 @@ public class HomeController {
             //
             articleVOS = new PageContentVO<>();
         }else{
+            if (keyword.equals("周乐娟")) {
+                return "redirect:goto.html?u=http://love.lhrsite.com/";
+            }
             PageRequest pageRequest =
                     new PageRequest(page - 1, 10,
                             new Sort(Sort.Direction.DESC, "id"));
@@ -257,7 +260,11 @@ public class HomeController {
 
     }
 
-
+    @ResponseBody
+    @GetMapping("/goto.html")
+    public String go(String u){
+        return "<script>location.href='"+ u +"'</script>";
+    }
 
     public Model init(Model model){
         Website website = websiteService.getWebsite();

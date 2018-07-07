@@ -26,6 +26,13 @@
     <style>
         .blog-article-list{
             margin-bottom: 3rem;
+            opacity:0.6;
+        }
+        .blog-about{
+            opacity: 0.6;
+        }
+        .blog-article-list:hover, .blog-left-card:hover, .blog-about:hover{
+            opacity:0.9;
         }
         .blog-content{
             margin-top: 10px;
@@ -33,6 +40,7 @@
         .blog-left-card{
             width: 100%;
             margin-bottom: 1rem;
+            opacity:0.6;
         }
         .blog-main-content{
             margin-bottom: 1rem;
@@ -50,10 +58,21 @@
         .article-img{
             width: 100%;
         }
+        body{
+            background: url("https://ws4.sinaimg.cn/large/006tKfTcly1ft1kermfmdj31kw11hkjy.jpg");
+
+        }
+        .blog-clarity{
+            opacity:0.6;
+        }
+
+        .blog-clarity:hover{
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-secondary navbar-expand-lg">
+<nav class="navbar navbar-dark bg-secondary navbar-expand-lg blog-clarity">
     <a class="navbar-brand" href="/">${website.name}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

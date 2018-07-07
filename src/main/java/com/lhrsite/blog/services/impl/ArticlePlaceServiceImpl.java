@@ -63,7 +63,7 @@ public class ArticlePlaceServiceImpl implements ArticlePlaceService {
     @Override
     public void place(Article article, int doType) {
         Calendar cal = Calendar.getInstance();
-        Date date = article.getCreateTime();
+        Date date = new Date(System.currentTimeMillis());
         cal.setTime(date);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH) + 1;
